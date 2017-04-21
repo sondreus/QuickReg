@@ -6,13 +6,7 @@ fig.caption: yes
 ---
 # Easy OLS with options in R
 
-```{r set-options, echo=FALSE, cache=FALSE, message=FALSE, include = FALSE}
-options(width = 100)
-library(stargazer)
-library(zoo)
-library(sandwich)
-library(lmtest)
-```
+
 
 The QuickReg package and associated function provides an easy interface for linear regression in R. This includes the option to request robust and clustered standard errors, automatic labeling, and an easy way to specify multiple regression specifications simulatenously, and a compact html or latex output (relying on the widely used "stargazer" package). 
 
@@ -21,14 +15,16 @@ It also includes several functionalities to speed up computation, including a sp
 Written by Sondre U. Solstad (ssolstad@princeton.edu)
 
 Installation instructions:
-```{r, eval = FALSE}
+
+```r
 library(devtools)
 install_github("sondreus/QuickReg")
 ```
 
 ## Example: 
 
-```{r, message=FALSE, results='asis', warning=FALSE}
+
+```r
 library(QuickReg)
 
 # Loading data
@@ -50,8 +46,45 @@ QuickReg(data = mydata,
          stargazer.type = "html",
          silent = TRUE
          )
-
 ```
+
+
+<table style="text-align:center"><caption><strong>QuickReg Table (created: 2017-04-21 19:01:18)</strong></caption>
+<tr><td colspan="7" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"></td><td colspan="6"><em>Dependent variable:</em></td></tr>
+<tr><td></td><td colspan="6" style="border-bottom: 1px solid black"></td></tr>
+<tr><td style="text-align:left"></td><td colspan="3">Technology Adoption Level</td><td colspan="3">Distance to Frontier</td></tr>
+<tr><td style="text-align:left"></td><td>(1)</td><td>(2)</td><td>(3)</td><td>(4)</td><td>(5)</td><td>(6)</td></tr>
+<tr><td colspan="7" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Urban Population</td><td>0.0000<sup>***</sup></td><td>-0.0000</td><td>0.0000<sup>***</sup></td><td>0.0000<sup>***</sup></td><td>0.0000</td><td>0.0000<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.0000)</td><td>(0.0000)</td><td>(0.0000)</td><td>(0.0000)</td><td>(0.0000)</td><td>(0.0000)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">Log(GDPPC)</td><td></td><td>1.16<sup>***</sup></td><td></td><td></td><td>0.16<sup>***</sup></td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td>(0.07)</td><td></td><td></td><td>(0.01)</td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">Spatial distance to income</td><td></td><td>0.002<sup>***</sup></td><td>0.001<sup>**</sup></td><td></td><td>-0.0001</td><td>-0.0002<sup>**</sup></td></tr>
+<tr><td style="text-align:left"></td><td></td><td>(0.0004)</td><td>(0.0005)</td><td></td><td>(0.0001)</td><td>(0.0001)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">Spatial distance to technology</td><td>0.005<sup>***</sup></td><td>0.004<sup>***</sup></td><td>0.004<sup>***</sup></td><td>0.0004<sup>***</sup></td><td>0.001<sup>***</sup></td><td>0.001<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.0003)</td><td>(0.0003)</td><td>(0.0004)</td><td>(0.0001)</td><td>(0.0001)</td><td>(0.0001)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">At War</td><td>-0.09</td><td></td><td></td><td>-0.02</td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td>(0.07)</td><td></td><td></td><td>(0.01)</td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">Polity2 score</td><td>-0.03<sup>***</sup></td><td></td><td></td><td>-0.002<sup>***</sup></td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td>(0.004)</td><td></td><td></td><td>(0.001)</td><td></td><td></td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td style="text-align:left">Constant</td><td>2.73<sup>***</sup></td><td>-9.24<sup>***</sup></td><td>2.29<sup>***</sup></td><td>0.51<sup>***</sup></td><td>-1.08<sup>***</sup></td><td>0.53<sup>***</sup></td></tr>
+<tr><td style="text-align:left"></td><td>(0.19)</td><td>(0.74)</td><td>(0.20)</td><td>(0.04)</td><td>(0.12)</td><td>(0.04)</td></tr>
+<tr><td style="text-align:left"></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="7" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Country FE</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td style="text-align:left">Year FE</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td style="text-align:left">Tech. FE</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+<tr><td colspan="7" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left">Observations</td><td>5,994</td><td>5,884</td><td>6,240</td><td>5,943</td><td>5,833</td><td>6,189</td></tr>
+<tr><td style="text-align:left">R<sup>2</sup></td><td>0.89</td><td>0.89</td><td>0.88</td><td>0.86</td><td>0.86</td><td>0.85</td></tr>
+<tr><td style="text-align:left">Adjusted R<sup>2</sup></td><td>0.88</td><td>0.89</td><td>0.88</td><td>0.85</td><td>0.86</td><td>0.85</td></tr>
+<tr><td style="text-align:left">Residual Std. Error</td><td>0.80 (df = 5810)</td><td>0.78 (df = 5706)</td><td>0.81 (df = 6052)</td><td>0.14 (df = 5759)</td><td>0.13 (df = 5655)</td><td>0.14 (df = 6001)</td></tr>
+<tr><td colspan="7" style="border-bottom: 1px solid black"></td></tr><tr><td style="text-align:left"><em>Note:</em></td><td colspan="6" style="text-align:right"><sup>*</sup>p<0.1; <sup>**</sup>p<0.05; <sup>***</sup>p<0.01</td></tr>
+<tr><td style="text-align:left"></td><td colspan="6" style="text-align:right">(Robust Standard Errors in Parenthesis)</td></tr>
+</table>
 
 See also the resultant html file: QuickReg.html -  https://cdn.rawgit.com/sondreus/QuickReg/e5f72f0a/QuickReg.html
 
@@ -84,7 +117,8 @@ N/A
 
 ## Demeaning Acceleration:
 
-```{r, message=FALSE, results='asis', eval=FALSE}
+
+```r
 library("microbenchmark")
 
 mydata$technology_year <- interaction(mydata$technology, mydata$year)
@@ -148,7 +182,7 @@ print( paste( "Total number of fixed effects:", nrow(unique(data[, fixed.effects
 
 ## Acknowledgements
 
-This package relies on the stargazer package by Marek Hlavac, the sandwich package by Thomas Lumley and Achim Zeileis, the lfe package by Simen Gaure, the multivcov package by Nathaniel Graham and Mahmood Arai and Björn Hagströmer, and the lmtest package by Torsten Hothorn, Achim Zeileis, Richard W. Farebrother, Clint Cummins, Giovanni Millo, and David Mitchell.
+This package relies on the stargazer package by Marek Hlavac, the sandwich package by Thomas Lumley and Achim Zeileis, the lfe package by Simen Gaure, the multivcov package by Nathaniel Graham and Mahmood Arai and BjÃ¶rn HagstrÃ¶mer, and the lmtest package by Torsten Hothorn, Achim Zeileis, Richard W. Farebrother, Clint Cummins, Giovanni Millo, and David Mitchell.
 
 See also:
 

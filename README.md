@@ -2,8 +2,8 @@ QuickReg
 ================
 Sondre U. Solstad
 
-An R package for seeing what you're missing
-===========================================
+Easy OLS with options in R
+==========================
 
 The QuickReg package and associated function provides an easy interface for linear regression in R. This includes the option to request robust and clustered standard errors, automatic labeling, and an easy way to specify multiple regression specifications simulatenously, and a compact html or latex output (relying on the widely used "stargazer" package).
 
@@ -47,7 +47,7 @@ QuickReg(data = mydata,
 
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2017-04-21 17:36:33)</strong>
+<strong>QuickReg Table (created: 2017-04-21 19:01:18)</strong>
 </caption>
 <tr>
 <td colspan="7" style="border-bottom: 1px solid black">
@@ -690,6 +690,8 @@ Residual Std. Error
 </td>
 </tr>
 </table>
+See also the resultant html file: QuickReg.html - <https://cdn.rawgit.com/sondreus/QuickReg/e5f72f0a/QuickReg.html>
+
 Arguments:
 ----------
 
@@ -716,6 +718,72 @@ Arguments:
 
 Explanation and detail
 ----------------------
+
+N/A
+
+Demeaning Acceleration:
+-----------------------
+
+``` r
+library("microbenchmark")
+
+mydata$technology_year <- interaction(mydata$technology, mydata$year)
+mydata$technology_ccode <- interaction(mydata$technology, mydata$ccode)
+
+N <- 20000
+set.seed(12358)
+
+# Testing performance gain:
+microbenchmark(
+  
+   QuickReg(data = mydata[sample(1:nrow(mydata), N, replace = TRUE), ],  
+         iv.vars = c("upop", "log_gdppc_mad", "SDI", "SDT", "war", "polity2"), 
+         iv.vars.names = c("Urban Population", "Log(GDPPC)", "Spatial distance to income", 
+          "Spatial distance to technology", "At War", "Polity2 score"), 
+         dv.vars = c("log_adoption_lvl_pc", "distance_to_frontier", "cinc"), 
+         dv.vars.names = c("Technology Adoption Level", "Distance to Frontier", "National Capabilities"), 
+         specifications = list( c(1, 3, 4, 5, 6),
+                        c(1, 5, 6),
+                        c(1, 5, 3), 
+                        c(1, 2, 3, 4)), 
+         fixed.effects = c("technology_ccode", "technology_year"), 
+         fixed.effects.names = c("Technology-Country FE", "Technology-Year FE"),
+         cluster = "ccode",
+         html.only = TRUE,
+         silent = TRUE,
+         out.name = "QuickReg.normal",
+         
+         # Demeaning acceleration is set to FALSE (default)
+         demeaning.acceleration = FALSE
+         )
+  ,
+         QuickReg(data = mydata[sample(1:nrow(mydata), N, replace = TRUE), ],  
+         iv.vars = c("upop", "log_gdppc_mad", "SDI", "SDT", "war", "polity2"), 
+         iv.vars.names = c("Urban Population", "Log(GDPPC)", "Spatial distance to income", 
+          "Spatial distance to technology", "At War", "Polity2 score"), 
+         dv.vars = c("log_adoption_lvl_pc", "distance_to_frontier", "cinc"), 
+         dv.vars.names = c("Technology Adoption Level", "Distance to Frontier", "National Capabilities"), 
+         specifications = list( c(1, 3, 4, 5, 6),
+                        c(1, 5, 6),
+                        c(1, 5, 3), 
+                        c(1, 2, 3, 4)), 
+         fixed.effects = c("technology_ccode", "technology_year"), 
+         fixed.effects.names = c("Technology-Country FE", "Technology-Year FE"),
+         cluster = "ccode",
+         html.only = TRUE,
+         silent = TRUE,
+         out.name = "QuickReg.normal",
+         
+         # Demeaning acceleration is set to TRUE
+         demeaning.acceleration = TRUE
+         ), 
+  
+         # Specifying number of trails. 
+          times = 2)  
+
+print( paste("Total number of observations:", N))
+print( paste( "Total number of fixed effects:", nrow(unique(data[, fixed.effects]))))
+```
 
 Acknowledgements
 ----------------
