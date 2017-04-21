@@ -1,0 +1,10 @@
+Package: QuickReg
+Title: Quick and Easy OLS Interface
+Version: 0.0.0.9000
+Authors@R: person("Sondre Ulvund", "Solstad", email = "ssolstad@princeton.edu", role = c("aut", "cre"))
+Description: The QuickReg package provides an easy interface for regression in R. This includes the option to request robust and clustered standard errors, automatic labeling, and easy way to specify multiple regression specifications simulatenously, and a compact html or latex output (relying on the widely used "stargazer" package). It also includes several functionalities to speed up computation, including a special implementation of the method of alternating projections that may reduce calculation time by more than 50 percent for analysis with a large number of fixed effects, and whose performance gain is increasing in the number of specifications passed to the function simultaneously.
+Depends: R (>= 3.2.4)
+License: N/A
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 5.0.1.9000
