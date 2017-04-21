@@ -43,6 +43,7 @@ QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, spec
   accelerate <- FALSE
   
   ## If demeaning.acceleration option selected, setting this to TRUE: 
+  if(!missing(fixed.effects)){
   if(!missing(demeaning.acceleration)){
     if(demeaning.acceleration == TRUE){
       if(!is.null(fixed.effects)){
@@ -64,6 +65,7 @@ QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, spec
       }
       
     } 
+  }
   }
   
   # If so, generate new temporary dataset
@@ -405,7 +407,7 @@ QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, spec
       fits <-  lapply(paste("QuickReg.col", 1:(colnumber-1), sep = ""), FUN = get, envir=sys.frame(sys.parent(0)))
       
       # Loading the multiwayvcov package
-      library(multiwayvcov)
+      library(multiwayvcov, quietly = TRUE)
       
       # Container for cluster-robust standard errors
       cluster.robust.se <- vector("list", colnumber -1)
@@ -457,8 +459,8 @@ QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, spec
     
     if(!missing(robust.se)){
       if(robust.se == TRUE){  
-        require(lmtest)
-        require(sandwich)
+        library(lmtest, quietly = TRUE)
+        library(sandwich, quietly = TRUE)
         
         # Looping through list and calculating robust Standard Errors based on sandwich estimator:
         robust.se <- vector("list", colnumber-1)  
