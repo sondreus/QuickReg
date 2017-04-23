@@ -1,8 +1,8 @@
 
 % Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: Sat, Apr 22, 2017 - 7:00:39 PM
+% Date and time: Sun, Apr 23, 2017 - 1:22:10 PM
 \begin{table}[!htbp] \centering 
-  \caption{QuickReg Table (created: 2017-04-22 19:00:39)} 
+  \caption{QuickReg Table (created: 2017-04-23 13:22:10)} 
   \label{} 
 \tiny 
 \begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
@@ -13,21 +13,21 @@
 \\[-1.8ex] & \multicolumn{3}{c}{y} & \multicolumn{3}{c}{alternative.y} \\ 
 \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
 \hline \\[-1.8ex] 
- x1 & 0.02$^{**}$ &  & 0.02$^{**}$ & $-$0.01 &  & $-$0.01 \\ 
-  & (0.01) &  & (0.01) & (0.01) &  & (0.01) \\ 
+ x1 & $-$0.001 &  & $-$0.001 & 0.05 &  & 0.04 \\ 
+  & (0.03) &  & (0.03) & (0.03) &  & (0.03) \\ 
   & & & & & & \\ 
- x2 &  & $-$0.01 & $-$0.01 &  & $-$0.004 & $-$0.004 \\ 
-  &  & (0.01) & (0.01) &  & (0.01) & (0.01) \\ 
+ x2 &  & 0.01 & 0.01 &  & 0.07$^{**}$ & 0.07$^{**}$ \\ 
+  &  & (0.03) & (0.03) &  & (0.03) & (0.03) \\ 
   & & & & & & \\ 
- x3 &  & $-$0.001 & $-$0.001 &  & 0.02 & 0.02 \\ 
-  &  & (0.01) & (0.01) &  & (0.01) & (0.01) \\ 
+ x3 &  & $-$0.03 & $-$0.03 &  & $-$0.01 & $-$0.01 \\ 
+  &  & (0.03) & (0.03) &  & (0.03) & (0.03) \\ 
   & & & & & & \\ 
 \hline \\[-1.8ex] 
 group1 & Yes & Yes & Yes & Yes & Yes & Yes \\ 
 group2 & Yes & Yes & Yes & Yes & Yes & Yes \\ 
 \hline &  &  &  &  &  &  \\ 
-Observations & 10,000 & 10,000 & 10,000 & 10,000 & 10,000 & 10,000 \\ 
-Residual Std. Error & 0.95 (df = 9998) & 0.95 (df = 9997) & 0.95 (df = 9996) & 0.94 (df = 9998) & 0.94 (df = 9997) & 0.94 (df = 9996) \\ 
+Observations & 1,000 & 1,000 & 1,000 & 1,000 & 1,000 & 1,000 \\ 
+Residual Std. Error & 0.91 (df = 998) & 0.91 (df = 997) & 0.91 (df = 996) & 0.90 (df = 998) & 0.90 (df = 997) & 0.90 (df = 996) \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 

@@ -202,7 +202,7 @@ With a large number of fixed effects, regression analysis can take a very long t
 
 Secondly, and more importantly for speed purposes, one often wants to calculate results for a number of different specifications of IVs and DVs with the same fixed effects and sample of observations. QuickReg is suitable for such cases for several reasons, the first being that it provides a convenient interface for listing specifications, and second because it summarizes model results in the familiar and concise table format with columns corresponding to different models. QuickReg is also able to speed up the calculations of such tables *significantly* by applying the demeaning procedure to a single covariate matrix shared by all specifications. While standard implementations calculate fixed effects repeatedly for different specifications, it is here only done once, and then shared across all specifications. Two words of caution are in order: (1) this limits calculations to a common sample, and (2) it makes fitted objects' model statistics (e.g. R-squared) meaningless (these are removed from the resultant table automatically). Coefficient confidence intervals can and are however still calculated correctly, and all QuickReg options (including to calculate robust SEs) are available.    
 
-```{r, message=FALSE, results='asis', cache=TRUE, warning=FALSE}
+```{r, message=FALSE, cache=TRUE, warning=FALSE}
 library("microbenchmark")
 
 N <- 1000
@@ -248,7 +248,7 @@ print( paste( "Total number of fixed effects:", length(unique(mydata[, "group1"]
 
 In the above example, QuickReg provided an almost a 50 percent decrease in time spent. Gains are much larger when we increase the number of fixed effects, as in the below example:
 
-```{r, message=FALSE, results='asis', cache=TRUE, warning=FALSE}
+```{r, message=FALSE, cache=TRUE, warning=FALSE}
 library("microbenchmark")
 
 N <- 10000
@@ -285,7 +285,7 @@ speed.test <- suppressWarnings(microbenchmark(QuickReg(data = mydata, iv.vars = 
          ), 
   
          # Specifying number of trails. 
-          times = 20))
+          times = 10))
 speed.test
 
 print( paste("Total number of observations:", N))
