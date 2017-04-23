@@ -40,14 +40,14 @@ QuickReg(data = mydata,
          fixed.effects = c("ccode", "technology", "year"),
          fixed.effects.names = c("Country FE", "Year FE", "Tech. FE"), 
          robust.se = TRUE,
-         stargazer.type = "html",
+         type = "html",
          silent = TRUE
          )
 ```
 
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2017-04-21 19:01:18)</strong>
+<strong>QuickReg Table (created: 2017-04-22 19:28:23)</strong>
 </caption>
 <tr>
 <td colspan="7" style="border-bottom: 1px solid black">
@@ -710,80 +710,3167 @@ Arguments:
 -   **table.title** - *(Optional)* Specifies the title of the table with regression output. Defaults to "QuickReg" plus the date and time of creation in parenthesis.
 -   **out.name** - *(Optional)* Specifies the output file name. Defaults to "QuickReg.html".
 -   **dynamic.out.name** - *(Optional)* If TRUE, adds date and time of creation in brackets between the out.name and the file extension (e.g. QuickReg (2017-04-05-14-01-27).html)
--   \*\*html.only - *(Optional)* If TRUE, no latex output produced (only HTML table). Defaults to FALSE.
+-   **html.only** - *(Optional)* If TRUE, no latex output produced (only HTML table). Defaults to FALSE.
+-   **type** - *(Optional)* Specifies the type of table output that will be requested from Stargazer. Possible values are: "latex", "html", and "text". Defaults to "latex".
 -   **silent** - *(Optional)* If TRUE, no messages are returned by the function. Defaults to FALSE.
 -   **save.fits** - *(Optional)* If TRUE, saves fitted lm objects in a list by the name "QuickReg.fits" adding an integer if an object by this name already exists. Defaults to FALSE.
 -   **demeaning.acceleration** - *(Optional)* If TRUE, attempts to speed up regression by the method of alternating projections. In particular, it utilizes the "demeanlist" function of the "lfe" package to create a matrix of all covariates demeaned by all fixed effects, and then fits the different regression specifications on this demeaned matrix. Time saved is increasing in the number of fixed effects, specifications and observations, and this method is slower when all these are low. If there are thousands of fixed effects and many specifications, time saved is potentially quite large. Note: Overrides fixed.effects.specifications, always including all variables specified in fixed.effects, and does not supply R-squared or other model statistics. Defaults to FALSE.
--   **...** - Various options passed to the stargazer function. See ?stargazer.
+-   **...** - Various options passed to the stargazer function. In particular: *stargazer.digits* = integer of number of digits to be displayed, *stargazer.font.size* = font size (e.g. "tiny") if output is latex (no font size is imposed by default), *stargazer.style* = table style (see "?stargazer\_style\_list"), *stargazer.omit.stat* = character vector of model statistics to be omitted from table output.
 
 Explanation and detail
 ----------------------
 
-N/A
+The QuickReg function is meant to provide a comprehensive and convenient linear regression interface in R. It has been designed with the objective of being intuitive and easy to use at default settings, but with enough options for advanced users. Most importantly, the function is meant to facilitate a smooth and productive workflow.
+
+QuickReg is designed to work smoothly with knitr and Rmarkdown, and allows output to be requested from stargazer to be in "latex", "html", or "text" format.
+
+To illustrate the use of QuickReg, consider a researcher considering the linear relationships between a few variables.
+
+``` r
+N <- 1000
+mydata <- cbind.data.frame(rnorm(N), rnorm(N), rnorm(N), rnorm(N), rnorm(N), 
+                           rep(seq(1:10), N/10), sample(1:10, N, replace = TRUE))
+colnames(mydata) <- c("y", "alternative.y", "x1", "x2", "x3", "group1", "group2")
+```
+
+Let's fit a simple regression in base R:
+
+``` r
+# Standard R
+summary(lm(y ~ x1, data = mydata))
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = y ~ x1, data = mydata)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -3.4011 -0.6507 -0.0201  0.7011  3.1762 
+    ## 
+    ## Coefficients:
+    ##              Estimate Std. Error t value Pr(>|t|)
+    ## (Intercept) -0.046726   0.032466  -1.439    0.150
+    ## x1          -0.008746   0.033053  -0.265    0.791
+    ## 
+    ## Residual standard error: 1.027 on 998 degrees of freedom
+    ## Multiple R-squared:  7.015e-05,  Adjusted R-squared:  -0.0009318 
+    ## F-statistic: 0.07001 on 1 and 998 DF,  p-value: 0.7914
+
+And then in QuickReg:
+
+``` r
+# QuickReg
+QuickReg(data = mydata, dv.vars = "y", iv.vars = "x1", type = "html")
+```
+
+<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
+<table style="text-align:center">
+<caption>
+<strong>QuickReg Table (created: 2017-04-22 19:28:30)</strong>
+</caption>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+y
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x1
+</td>
+<td>
+-0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.0001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+1.03 (df = 998)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td style="text-align:right">
+(Normal Standard Errors in Parenthesis)
+</td>
+</tr>
+</table>
+Suppose we also are interested in the effects of "x2" and "x3".
+
+Base R:
+
+``` r
+# Standard R
+summary(lm(y ~ x1 + x2 + x3, data = mydata))
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = y ~ x1 + x2 + x3, data = mydata)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -3.2901 -0.6511 -0.0204  0.7268  3.1888 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)
+    ## (Intercept) -0.04688    0.03251  -1.442    0.150
+    ## x1          -0.01077    0.03312  -0.325    0.745
+    ## x2           0.01688    0.03295   0.512    0.608
+    ## x3          -0.03607    0.03215  -1.122    0.262
+    ## 
+    ## Residual standard error: 1.027 on 996 degrees of freedom
+    ## Multiple R-squared:  0.001634,   Adjusted R-squared:  -0.001373 
+    ## F-statistic: 0.5435 on 3 and 996 DF,  p-value: 0.6526
+
+QuickReg:
+
+``` r
+# QuickReg
+QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), type = "html")
+```
+
+<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
+<table style="text-align:center">
+<caption>
+<strong>QuickReg Table (created: 2017-04-22 19:28:31)</strong>
+</caption>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+y
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x1
+</td>
+<td>
+-0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x2
+</td>
+<td>
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x3
+</td>
+<td>
+-0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+1.03 (df = 996)
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td style="text-align:right">
+(Normal Standard Errors in Parenthesis)
+</td>
+</tr>
+</table>
+But what are the unconditional effects of x2 and x3, and how do they compare with x1?
+
+Base R:
+
+``` r
+# Standard R
+summary(lm(y ~ x1, data = mydata))
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = y ~ x1, data = mydata)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -3.4011 -0.6507 -0.0201  0.7011  3.1762 
+    ## 
+    ## Coefficients:
+    ##              Estimate Std. Error t value Pr(>|t|)
+    ## (Intercept) -0.046726   0.032466  -1.439    0.150
+    ## x1          -0.008746   0.033053  -0.265    0.791
+    ## 
+    ## Residual standard error: 1.027 on 998 degrees of freedom
+    ## Multiple R-squared:  7.015e-05,  Adjusted R-squared:  -0.0009318 
+    ## F-statistic: 0.07001 on 1 and 998 DF,  p-value: 0.7914
+
+``` r
+summary(lm(y ~ x2, data = mydata))
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = y ~ x2, data = mydata)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -3.3710 -0.6490 -0.0250  0.7119  3.1529 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)
+    ## (Intercept) -0.04745    0.03249  -1.460    0.145
+    ## x2           0.01754    0.03287   0.534    0.594
+    ## 
+    ## Residual standard error: 1.027 on 998 degrees of freedom
+    ## Multiple R-squared:  0.0002853,  Adjusted R-squared:  -0.0007164 
+    ## F-statistic: 0.2848 on 1 and 998 DF,  p-value: 0.5937
+
+``` r
+summary(lm(y ~ x3, data = mydata))
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = y ~ x3, data = mydata)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -3.3247 -0.6403 -0.0189  0.7202  3.1993 
+    ## 
+    ## Coefficients:
+    ##             Estimate Std. Error t value Pr(>|t|)
+    ## (Intercept) -0.04619    0.03245  -1.423    0.155
+    ## x3          -0.03633    0.03209  -1.132    0.258
+    ## 
+    ## Residual standard error: 1.026 on 998 degrees of freedom
+    ## Multiple R-squared:  0.001282,   Adjusted R-squared:  0.0002817 
+    ## F-statistic: 1.282 on 1 and 998 DF,  p-value: 0.2579
+
+QuickReg:
+
+``` r
+# QuickReg
+QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), specifications = list(1, 2, 3), 
+         type = "html")
+```
+
+<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
+<table style="text-align:center">
+<caption>
+<strong>QuickReg Table (created: 2017-04-22 19:28:32)</strong>
+</caption>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+y
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x1
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x2
+</td>
+<td>
+</td>
+<td>
+0.02
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.0001
+</td>
+<td>
+0.0003
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.001
+</td>
+<td>
+-0.001
+</td>
+<td>
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error (df = 998)
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3" style="text-align:right">
+(Normal Standard Errors in Parenthesis)
+</td>
+</tr>
+</table>
+We might also want robust standard errors or standard errors clustered at "group1":
+
+Base R: See this guide - <http://www.drewdimmery.com/robust-ses-in-r/>
+
+or use QuickReg with the option "robust.se = TRUE" or "cluster ='clustering variable'":
+
+``` r
+# QuickReg
+QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), specifications = list(1, 2, 3), 
+         type = "html", robust.se = TRUE)
+```
+
+<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
+<table style="text-align:center">
+<caption>
+<strong>QuickReg Table (created: 2017-04-22 19:28:33)</strong>
+</caption>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+y
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x1
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x2
+</td>
+<td>
+</td>
+<td>
+0.02
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.0001
+</td>
+<td>
+0.0003
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.001
+</td>
+<td>
+-0.001
+</td>
+<td>
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error (df = 998)
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3" style="text-align:right">
+(Robust Standard Errors in Parenthesis)
+</td>
+</tr>
+</table>
+``` r
+QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), specifications = list(1, 2, 3), 
+         type = "html", cluster = "group1")
+```
+
+<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
+<table style="text-align:center">
+<caption>
+<strong>QuickReg Table (created: 2017-04-22 19:28:34)</strong>
+</caption>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+y
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x1
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.02)
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x2
+</td>
+<td>
+</td>
+<td>
+0.02
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.04)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.04)
+</td>
+<td>
+(0.04)
+</td>
+<td>
+(0.04)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.0001
+</td>
+<td>
+0.0003
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.001
+</td>
+<td>
+-0.001
+</td>
+<td>
+0.0003
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error (df = 998)
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3" style="text-align:right">
+(Cluster-Robust Standard Errors in Parenthesis)
+</td>
+</tr>
+</table>
+Let us also try a few more combinations using QuickReg:
+
+``` r
+# QuickReg
+QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), 
+         specifications = list(1, 2, 3, c(1, 3), c(1,2), c(2, 3),  c(1,2,3)), 
+         type = "html", robust.se = TRUE)
+```
+
+<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
+<table style="text-align:center">
+<caption>
+<strong>QuickReg Table (created: 2017-04-22 19:28:35)</strong>
+</caption>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="7">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="7">
+y
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+<td>
+(5)
+</td>
+<td>
+(6)
+</td>
+<td>
+(7)
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x1
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.01
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+-0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x2
+</td>
+<td>
+</td>
+<td>
+0.02
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.04
+</td>
+<td>
+-0.04
+</td>
+<td>
+</td>
+<td>
+-0.04
+</td>
+<td>
+-0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.0001
+</td>
+<td>
+0.0003
+</td>
+<td>
+0.001
+</td>
+<td>
+0.001
+</td>
+<td>
+0.0004
+</td>
+<td>
+0.002
+</td>
+<td>
+0.002
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.001
+</td>
+<td>
+-0.001
+</td>
+<td>
+0.0003
+</td>
+<td>
+-0.001
+</td>
+<td>
+-0.002
+</td>
+<td>
+-0.0005
+</td>
+<td>
+-0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error
+</td>
+<td>
+1.03 (df = 998)
+</td>
+<td>
+1.03 (df = 998)
+</td>
+<td>
+1.03 (df = 998)
+</td>
+<td>
+1.03 (df = 997)
+</td>
+<td>
+1.03 (df = 997)
+</td>
+<td>
+1.03 (df = 997)
+</td>
+<td>
+1.03 (df = 996)
+</td>
+</tr>
+<tr>
+<td colspan="8" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="7" style="text-align:right">
+<sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="7" style="text-align:right">
+(Robust Standard Errors in Parenthesis)
+</td>
+</tr>
+</table>
+Or try adding another DV:
+
+``` r
+# QuickReg
+QuickReg(data = mydata, dv.vars = c("y", "alternative.y"), iv.vars = c("x1", "x2", "x3"), specifications = list(1, 2, 3),
+         type = "html", robust.se = TRUE)
+```
+
+<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
+<table style="text-align:center">
+<caption>
+<strong>QuickReg Table (created: 2017-04-22 19:28:36)</strong>
+</caption>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="6">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+y
+</td>
+<td colspan="3">
+alternative.y
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+<td>
+(5)
+</td>
+<td>
+(6)
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x1
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x2
+</td>
+<td>
+</td>
+<td>
+0.02
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.004
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.04
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.07<sup>\*\*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+<td>
+-0.05
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.0001
+</td>
+<td>
+0.0003
+</td>
+<td>
+0.001
+</td>
+<td>
+0.0001
+</td>
+<td>
+0.0000
+</td>
+<td>
+0.004
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+-0.001
+</td>
+<td>
+-0.001
+</td>
+<td>
+0.0003
+</td>
+<td>
+-0.001
+</td>
+<td>
+-0.001
+</td>
+<td>
+0.003
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error (df = 998)
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+<td>
+1.02
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="6" style="text-align:right">
+<sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="6" style="text-align:right">
+(Robust Standard Errors in Parenthesis)
+</td>
+</tr>
+</table>
+Or fixed effects:
+
+``` r
+# QuickReg
+QuickReg(data = mydata, dv.vars = c("y", "alternative.y"), iv.vars = c("x1", "x2", "x3"), fixed.effects = c("group1", "group2"), specifications = list(1, 2, 3), 
+         type = "html", robust.se = TRUE)
+```
+
+<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
+<table style="text-align:center">
+<caption>
+<strong>QuickReg Table (created: 2017-04-22 19:28:37)</strong>
+</caption>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="6">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+y
+</td>
+<td colspan="3">
+alternative.y
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+<td>
+(5)
+</td>
+<td>
+(6)
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x1
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x2
+</td>
+<td>
+</td>
+<td>
+0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.004
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+x3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.03
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.07<sup>\*\*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.19
+</td>
+<td>
+-0.19
+</td>
+<td>
+-0.19
+</td>
+<td>
+-0.06
+</td>
+<td>
+-0.06
+</td>
+<td>
+-0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.14)
+</td>
+<td>
+(0.14)
+</td>
+<td>
+(0.14)
+</td>
+<td>
+(0.15)
+</td>
+<td>
+(0.15)
+</td>
+<td>
+(0.15)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+group1
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+group2
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.04
+</td>
+<td>
+0.04
+</td>
+<td>
+0.04
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+<td>
+-0.003
+</td>
+<td>
+-0.003
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error (df = 980)
+</td>
+<td>
+1.02
+</td>
+<td>
+1.02
+</td>
+<td>
+1.02
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="6" style="text-align:right">
+<sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="6" style="text-align:right">
+(Robust Standard Errors in Parenthesis)
+</td>
+</tr>
+</table>
+Lastly, we can make it look better by adding labels and titles:
+
+``` r
+# QuickReg
+QuickReg(data = mydata,
+         table.title = "My Regression Results", 
+         dv.vars = c("y", "alternative.y"), 
+         dv.vars.names = c("Outcome", "Alternative Outcome"),
+         iv.vars = c("x1", "x2", "x3"),
+         iv.vars.names = c("Variable 1", "Variable 2", "Variable 3"),
+         fixed.effects = c("group1", "group2"),
+         fixed.effects.names = c("Group 1 FE", "Group 2 FE"),
+         specifications = list(1, 2, 3), 
+         cluster = "group1", 
+         cluster.names = "Group 1",
+         type = "html")
+```
+
+<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
+<table style="text-align:center">
+<caption>
+<strong>My Regression Results</strong>
+</caption>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="6">
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="6" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+Outcome
+</td>
+<td colspan="3">
+Alternative Outcome
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+<td>
+(4)
+</td>
+<td>
+(5)
+</td>
+<td>
+(6)
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Variable 1
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.04)
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Variable 2
+</td>
+<td>
+</td>
+<td>
+0.01
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.004
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.04)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Variable 3
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.03
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+-0.07<sup>\*\*</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.04)
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+(0.03)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-0.19<sup>\*</sup>
+</td>
+<td>
+-0.19<sup>\*</sup>
+</td>
+<td>
+-0.19<sup>\*</sup>
+</td>
+<td>
+-0.06
+</td>
+<td>
+-0.06
+</td>
+<td>
+-0.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.11)
+</td>
+<td>
+(0.11)
+</td>
+<td>
+(0.11)
+</td>
+<td>
+(0.09)
+</td>
+<td>
+(0.09)
+</td>
+<td>
+(0.09)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Group 1 FE
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Group 2 FE
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+<td>
+Yes
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+<td>
+1,000
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.04
+</td>
+<td>
+0.04
+</td>
+<td>
+0.04
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+<td>
+0.02
+</td>
+<td>
+-0.003
+</td>
+<td>
+-0.003
+</td>
+<td>
+0.001
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Residual Std. Error (df = 980)
+</td>
+<td>
+1.02
+</td>
+<td>
+1.02
+</td>
+<td>
+1.02
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+<td>
+1.03
+</td>
+</tr>
+<tr>
+<td colspan="7" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="6" style="text-align:right">
+<sup>*</sup>p&lt;0.1; <sup>**</sup>p&lt;0.05; <sup>***</sup>p&lt;0.01
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="6" style="text-align:right">
+(Group 1-Clustered Standard Errors in Parenthesis)
+</td>
+</tr>
+</table>
+It is worth noting that despite QuickReg's number of options and different syntax than base R, the function's setup cost is low: tests suggest about 1/5th of a second.
 
 Demeaning Acceleration:
 -----------------------
 
+With a large number of fixed effects, regression analysis can take a very long time. QuickReg offers a solution to this problem. First, QuickReg implements the method of alternating projections, which takes advantage of the fact that fixed effects are equivalent to "demeaning" covariates by the levels of the fixed effects. If the number of fixed effects are large, it can be faster to demean than to invert matricies). This procedure is implemented through the demean.list function in the *lfe* package.
+
+Secondly, and more importantly for speed purposes, one often wants to calculate results for a number of different specifications of IVs and DVs with the same fixed effects and sample of observations. QuickReg is suitable for such cases for several reasons, the first being that it provides a convenient interface for listing specifications, and second because it summarizes model results in the familiar and concise table format with columns corresponding to different models. QuickReg is also able to speed up the calculations of such tables *significantly* by applying the demeaning procedure to a single covariate matrix shared by all specifications. While standard implementations calculate fixed effects repeatedly for different specifications, it is here only done once, and then shared across all specifications. Two words of caution are in order: (1) this limits calculations to a common sample, and (2) it makes fitted objects' model statistics (e.g. R-squared) meaningless (these are removed from the resultant table automatically). Coefficient confidence intervals can and are however still calculated correctly, and all QuickReg options (including to calculate robust SEs) are available.
+
 ``` r
 library("microbenchmark")
 
-mydata$technology_year <- interaction(mydata$technology, mydata$year)
-mydata$technology_ccode <- interaction(mydata$technology, mydata$ccode)
-
-N <- 20000
-set.seed(12358)
+N <- 1000
+mydata <- cbind.data.frame(rnorm(N), rnorm(N), rnorm(N), rnorm(N), rnorm(N), 
+                           rep(seq(1:100), N/100), sample(1:100, N, replace = TRUE))
+colnames(mydata) <- c("y", "alternative.y", "x1", "x2", "x3", "group1", "group2")
 
 # Testing performance gain:
-microbenchmark(
-  
-   QuickReg(data = mydata[sample(1:nrow(mydata), N, replace = TRUE), ],  
-         iv.vars = c("upop", "log_gdppc_mad", "SDI", "SDT", "war", "polity2"), 
-         iv.vars.names = c("Urban Population", "Log(GDPPC)", "Spatial distance to income", 
-          "Spatial distance to technology", "At War", "Polity2 score"), 
-         dv.vars = c("log_adoption_lvl_pc", "distance_to_frontier", "cinc"), 
-         dv.vars.names = c("Technology Adoption Level", "Distance to Frontier", "National Capabilities"), 
-         specifications = list( c(1, 3, 4, 5, 6),
-                        c(1, 5, 6),
-                        c(1, 5, 3), 
-                        c(1, 2, 3, 4)), 
-         fixed.effects = c("technology_ccode", "technology_year"), 
-         fixed.effects.names = c("Technology-Country FE", "Technology-Year FE"),
-         cluster = "ccode",
+speed.test <- suppressWarnings(microbenchmark(QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"),
+         dv.vars = c("y", "alternative.y"),
+         specifications = list( c(1),
+                        c(2, 3), 
+                        c(1, 2, 3)), 
+         fixed.effects = c("group1", "group2"), 
          html.only = TRUE,
          silent = TRUE,
          out.name = "QuickReg.normal",
          
          # Demeaning acceleration is set to FALSE (default)
          demeaning.acceleration = FALSE
-         )
-  ,
-         QuickReg(data = mydata[sample(1:nrow(mydata), N, replace = TRUE), ],  
-         iv.vars = c("upop", "log_gdppc_mad", "SDI", "SDT", "war", "polity2"), 
-         iv.vars.names = c("Urban Population", "Log(GDPPC)", "Spatial distance to income", 
-          "Spatial distance to technology", "At War", "Polity2 score"), 
-         dv.vars = c("log_adoption_lvl_pc", "distance_to_frontier", "cinc"), 
-         dv.vars.names = c("Technology Adoption Level", "Distance to Frontier", "National Capabilities"), 
-         specifications = list( c(1, 3, 4, 5, 6),
-                        c(1, 5, 6),
-                        c(1, 5, 3), 
-                        c(1, 2, 3, 4)), 
-         fixed.effects = c("technology_ccode", "technology_year"), 
-         fixed.effects.names = c("Technology-Country FE", "Technology-Year FE"),
-         cluster = "ccode",
+         ),
+         QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"),
+         dv.vars = c("y", "alternative.y"),
+         specifications = list( c(1),
+                        c(2, 3), 
+                        c(1, 2, 3)), 
+         fixed.effects = c("group1", "group2"), 
          html.only = TRUE,
          silent = TRUE,
-         out.name = "QuickReg.normal",
+         out.name = "QuickReg.fast",
          
-         # Demeaning acceleration is set to TRUE
+         # Demeaning acceleration is set to TRUE (not default)
          demeaning.acceleration = TRUE
          ), 
   
          # Specifying number of trails. 
-          times = 2)  
-
-print( paste("Total number of observations:", N))
-print( paste( "Total number of fixed effects:", nrow(unique(data[, fixed.effects]))))
+          times = 20))
+speed.test
 ```
+
+Unit: seconds expr QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"), dv.vars = c("y", "alternative.y"), specifications = list(c(1), c(2, 3), c(1, 2, 3)), fixed.effects = c("group1", "group2"), html.only = TRUE, silent = TRUE, out.name = "QuickReg.normal", demeaning.acceleration = FALSE) QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"), dv.vars = c("y", "alternative.y"), specifications = list(c(1), c(2, 3), c(1, 2, 3)), fixed.effects = c("group1", "group2"), html.only = TRUE, silent = TRUE, out.name = "QuickReg.fast", demeaning.acceleration = TRUE) min lq mean median uq max neval cld 4.924573 5.600758 6.299878 5.983389 6.532142 9.652184 20 b 2.301536 3.012971 3.489925 3.411861 3.699507 6.191820 20 a
+
+``` r
+print( paste("Total number of observations:", N))
+```
+
+\[1\] "Total number of observations: 1000"
+
+``` r
+print( paste( "Total number of fixed effects:", length(unique(mydata[, "group1"])) + length(unique(mydata[, "group2"]))))
+```
+
+\[1\] "Total number of fixed effects: 200"
+
+In the above example, QuickReg provided an almost a 50 percent decrease in time spent. Gains are much larger when we increase the number of fixed effects, as in the below example:
+
+``` r
+library("microbenchmark")
+
+N <- 10000
+mydata <- cbind.data.frame(rnorm(N), rnorm(N), rnorm(N), rnorm(N), rnorm(N), 
+                           rep(seq(1:1000), N/1000), sample(1:100, N, replace = TRUE))
+colnames(mydata) <- c("y", "alternative.y", "x1", "x2", "x3", "group1", "group2")
+
+# Testing performance gain:
+speed.test <- suppressWarnings(microbenchmark(QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"),
+         dv.vars = c("y", "alternative.y"),
+         specifications = list( c(1),
+                        c(2, 3), 
+                        c(1, 2, 3)), 
+         fixed.effects = c("group1", "group2"), 
+         html.only = TRUE,
+         silent = TRUE,
+         out.name = "QuickReg.normal.html",
+         
+         # Demeaning acceleration is set to FALSE (default)
+         demeaning.acceleration = FALSE
+         ),
+         QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"),
+         dv.vars = c("y", "alternative.y"),
+         specifications = list( c(1),
+                        c(2, 3), 
+                        c(1, 2, 3)), 
+         fixed.effects = c("group1", "group2"), 
+         html.only = TRUE,
+         silent = TRUE,
+         out.name = "QuickReg.fast.html",
+         
+         # Demeaning acceleration is set to TRUE (not default)
+         demeaning.acceleration = TRUE
+         ), 
+  
+         # Specifying number of trails. 
+          times = 20))
+speed.test
+```
+
+Unit: seconds expr QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"), dv.vars = c("y", "alternative.y"), specifications = list(c(1), c(2, 3), c(1, 2, 3)), fixed.effects = c("group1", "group2"), html.only = TRUE, silent = TRUE, out.name = "QuickReg.normal.html", demeaning.acceleration = FALSE) QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"), dv.vars = c("y", "alternative.y"), specifications = list(c(1), c(2, 3), c(1, 2, 3)), fixed.effects = c("group1", "group2"), html.only = TRUE, silent = TRUE, out.name = "QuickReg.fast.html", demeaning.acceleration = TRUE) min lq mean median uq max neval cld 202.82254 240.13707 244.98073 245.46398 252.47004 262.52672 20 b 53.33096 68.20238 79.23557 82.32012 89.31091 98.63979 20 a
+
+``` r
+print( paste("Total number of observations:", N))
+```
+
+\[1\] "Total number of observations: 10000"
+
+``` r
+print( paste( "Total number of fixed effects:", length(unique(mydata[, "group1"])) + length(unique(mydata[, "group2"]))))
+```
+
+\[1\] "Total number of fixed effects: 1100"
 
 Acknowledgements
 ----------------

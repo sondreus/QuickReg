@@ -17,8 +17,10 @@
 #' @param out.name (Optional) Specifies the output file name. Defaults to "QuickReg.html". 
 #' @param dynamic.out.name (Optional) If TRUE, adds date and time of creation in brackets between the out.name and the file extension (e.g. QuickReg (2017-04-05-14-01-27).html)
 #' @param html.only (Optional) If TRUE, no latex output produced (only HTML table). Defaults to FALSE.
+#' @param type (Optional) Specifies the type of table output that will be requested from Stargazer. Possible values are: "latex", "html", and "text". Defaults to "latex".
 #' @param silent (Optional) If TRUE, no messages are returned by the function. Defaults to FALSE.
 #' @param save.fits (Optional) If TRUE, saves fitted lm objects in a list by the name "QuickReg.fits" adding an integer if an object by this name already exists. Defaults to FALSE.
+#' @param no.out.file (Optional) If TRUE, does not save html table to working directory. 
 #' @param demeaning.acceleration (Optional) If TRUE, attempts to speed up regression by the method of alternating projections. In particular, it utilizes the "demeanlist" function of the "lfe" package to create a matrix of all covariates demeaned by all fixed effects, and then fits the different regression specifications on this demeaned matrix. Time saved is increasing in the number of fixed effects, specifications and observations, and this method is slower when all these are low. If there are thousands of fixed effects and many specifications, time saved is potentially quite large. Note: Overrides fixed.effects.specifications, always including all variables specified in fixed.effects, and does not supply R-squared or other model statistics. Defaults to FALSE.
 #' @param ... Various options passed to the stargazer function. See ?stargazer.
 #' @keywords lm OLS robust.se robust cluster LS reg regression QuickReg
@@ -27,91 +29,19 @@
 #' Please see: github.com/sondreus/QuickReg
 #'
 
-QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, specifications, fixed.effects, fixed.effects.names, fixed.effects.specifications, robust.se, cluster, cluster.names, table.title, out.name, dynamic.out.name, html.only, silent, save.fits, demeaning.acceleration, stargazer.digits, stargazer.font.size, stargazer.style, stargazer.omit.stat, stargazer.type) {
+QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, specifications, fixed.effects, fixed.effects.names, fixed.effects.specifications, robust.se, cluster, cluster.names, table.title, out.name, dynamic.out.name, html.only, type, silent, save.fits, no.out.file, demeaning.acceleration, stargazer.digits, stargazer.font.size, stargazer.style, stargazer.omit.stat) {
   
-  require(stargazer)  
+# Loading the "stargazer" package
+library(stargazer)  
   
+# Checking if data argument provided  
   if(missing(data)){
     stop("Please specify a data frame for your regression variables")
   } 
-  # Coercing into data frame
+  
+  
+# Coercing data into data frame
   data <- as.data.frame(data)  
-  
-  
-  
-  # Setting demeaning.acceleration option to default  
-  accelerate <- FALSE
-  
-  ## If demeaning.acceleration option selected, setting this to TRUE: 
-  if(!missing(fixed.effects)){
-  if(!missing(demeaning.acceleration)){
-    if(demeaning.acceleration == TRUE){
-      if(!is.null(fixed.effects)){
-        
-        accelerate <- TRUE
-        
-        # Checking if desired output to be silent, if so:
-        if(!missing(silent)){
-          if(silent == TRUE ){
-            # Print nothing, else:
-            
-          } else {
-            cat("% Demeaning Acceleration initiated || \n % Note : \n % (1) Row.wise deletion for all dv's, iv's, fixed.effects (i.e. all regressions now on same sample of obs.), \n % (2) Overriding manual fixed-effects specification, all fixed effects fitted by default. \n % \n ")
-          }
-        } else {
-          # Else print warning message:
-          cat("% Demeaning Acceleration initiated || \n % Note : \n % (1) Row.wise deletion for all dv's, iv's, fixed.effects (i.e. all regressions now on same sample of obs.), \n % (2) Overriding manual fixed-effects specification, all fixed effects fitted by default. \n % \n ")} 
-        
-      }
-      
-    } 
-  }
-  }
-  
-  # If so, generate new temporary dataset
-  if(accelerate == TRUE){
-    
-    if(!missing(specifications)){  
-      if(missing(cluster)){
-        demean.data <- na.omit(data[ , unique(c(dv.vars, iv.vars[sort(unique(unlist(specifications)))], fixed.effects))])
-        
-        # demean.vars <- unique(c(dv.vars, iv.vars[sort(unique(unlist(specifications)))], fixed.effects))
-        
-      } else {
-        demean.data <- na.omit(data[ , unique(c(dv.vars, iv.vars[sort(unique(unlist(specifications)))], fixed.effects, cluster))])
-        
-        # demean.vars <- unique(c(dv.vars, iv.vars[sort(unique(unlist(specifications)))], fixed.effects, cluster))
-      }
-    } else {
-      if(missing(cluster)){
-        demean.data <- na.omit(data[ , unique(c(dv.vars, iv.vars, fixed.effects))])
-        
-        # demean.vars <- unique(c(dv.vars, iv.vars, fixed.effects))
-      } else {
-        demean.data <- na.omit(data[ , unique(c(dv.vars, iv.vars, fixed.effects, cluster))])
-        
-        # demean.vars <- unique(c(dv.vars, iv.vars, fixed.effects))
-      }
-      
-      
-    }
-    
-    # Getting (fast) demeaning function (from https://journal.r-project.org/archive/2013-2/gaure.pdf):
-    library(lfe, quietly = TRUE)
-    
-    # Demean other covariates by each fixed effect in turn
-    
-    if(!missing(cluster)){
-      demean.data[, setdiff(setdiff(colnames(demean.data), fixed.effects), cluster)] <- demeanlist(demean.data[, setdiff(setdiff(colnames(demean.data), fixed.effects), cluster)], lapply(as.list(as.data.frame(model.matrix(as.formula(paste(" ~ ", paste0("as.factor(", fixed.effects, ")", collapse = "+"), " - 1")), data = demean.data))), factor))
-    } else {
-      demean.data[, setdiff(colnames(demean.data), fixed.effects)] <- demeanlist(demean.data[, setdiff(colnames(demean.data), fixed.effects)], lapply(as.list(as.data.frame(model.matrix(as.formula(paste(" ~ ", paste0("as.factor(", fixed.effects, ")", collapse = "+"), " - 1")), data = demean.data))), factor))
-    }
-    
-    data <- demean.data
-    fixed.effects.source <- fixed.effects
-    fixed.effects <- NULL
-    
-  }
   
   if(!missing(cluster)){
     if(length(cluster) >= 1){
@@ -130,6 +60,99 @@ QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, spec
   if(nrow(data) == 0){  
     stop("Please specify a data frame which is not missing for all observations")
   } 
+  
+  # Checking and specifying output type
+  if(missing(type)){
+    stargazer.type <- "latex"
+  } else {
+    stargazer.type <- type
+  }
+  
+  #
+  if(stargazer.type == "latex"){
+    creditation.message <- "% Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu"
+  }
+  if(stargazer.type == "html"){
+    creditation.message <- "<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->"
+  }
+  if(stargazer.type == "text"){
+    creditation.message <- "Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu."
+  }
+  
+  
+  
+# Setting demeaning.acceleration option to default  
+accelerate <- FALSE
+  
+## If demeaning.acceleration option selected, setting "accelerate" to TRUE: 
+  if(!missing(fixed.effects)){
+  if(!missing(demeaning.acceleration)){
+    if(demeaning.acceleration == TRUE){
+      if(!is.null(fixed.effects)){
+        
+        accelerate <- TRUE
+        
+        # Checking if desired output to be silent, if so:
+        if(!missing(silent)){
+          if(silent == TRUE ){
+            # Print nothing, else:
+            
+          } else {
+            cat("% Demeaning Acceleration initiated || \n % Note : \n % (1) Row.wise deletion for all dv's, iv's, fixed.effects (i.e. all regressions now on same sample of obs.), \n % (2) Overriding manual fixed-effects specification, all fixed effects fitted by default. \n % \n ")
+          }
+        } else {
+          # print warning message:
+          cat("% Demeaning Acceleration initiated || \n % Note : \n % (1) Row.wise deletion for all dv's, iv's, fixed.effects (i.e. all regressions now on same sample of obs.), \n % (2) Overriding manual fixed-effects specification, all fixed effects fitted by default. \n % \n ")} 
+        
+      }
+      
+    } 
+  }
+  }
+  
+# If accelerate option selected, generate new temporary dataset
+  if(accelerate == TRUE){
+    
+    if(!missing(specifications)){  
+      if(missing(cluster)){
+        
+        demean.data <- na.omit(data[ , unique(c(dv.vars, iv.vars[sort(unique(unlist(specifications)))], fixed.effects))])
+        
+      } else {
+        
+        demean.data <- na.omit(data[ , unique(c(dv.vars, iv.vars[sort(unique(unlist(specifications)))], fixed.effects, cluster))])
+        
+      }
+    } else {
+      if(missing(cluster)){
+        demean.data <- na.omit(data[ , unique(c(dv.vars, iv.vars, fixed.effects))])
+        
+      } else {
+        demean.data <- na.omit(data[ , unique(c(dv.vars, iv.vars, fixed.effects, cluster))])
+        
+      }
+      
+    }
+    
+    # Getting (fast) demeaning function (from https://journal.r-project.org/archive/2013-2/gaure.pdf):
+    library(lfe, quietly = TRUE)
+    
+    # Demeaning other covariates by each fixed effect in turn. 
+    # This can be time-consuming (if marginally faster than the standard lm implementation), but importantly  
+    # only needs to be done once for all regressions, instead of for all specifications separately. 
+    
+    if(!missing(cluster)){
+      demean.data[, setdiff(setdiff(colnames(demean.data), fixed.effects), cluster)] <- demeanlist(demean.data[, setdiff(setdiff(colnames(demean.data), fixed.effects), cluster)], lapply(as.list(as.data.frame(model.matrix(as.formula(paste(" ~ ", paste0("as.factor(", fixed.effects, ")", collapse = "+"), " - 1")), data = demean.data))), factor))
+    } else {
+      demean.data[, setdiff(colnames(demean.data), fixed.effects)] <- demeanlist(demean.data[, setdiff(colnames(demean.data), fixed.effects)], lapply(as.list(as.data.frame(model.matrix(as.formula(paste(" ~ ", paste0("as.factor(", fixed.effects, ")", collapse = "+"), " - 1")), data = demean.data))), factor))
+    }
+    
+    # From now on using demeaned data.
+    data <- demean.data
+    fixed.effects.source <- fixed.effects
+    fixed.effects <- NULL
+    
+  }
   
   ## Specifying names for saved fits (and SEs) if option selected:
   
@@ -162,6 +185,7 @@ QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, spec
     out.name <- out.name
   }
   
+  # Generating dynamic out name if option selected
   if(!missing(dynamic.out.name)){
     if(dynamic.out.name == TRUE){
       out.name.title <- paste0(unlist(strsplit(out.name, split="\\."))[1:(length(unlist(strsplit(out.name, split="\\.")))-1)], collapse =".")
@@ -171,7 +195,12 @@ QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, spec
     }
   }
   
-  
+  # Checking if "no.out.file" option selected. 
+  if(!missing(no.out.file)){
+    if(no.out.file == TRUE){
+      out.name <- NULL
+    }
+  }
   
   # Getting user-defined regression table title, if any
   if(missing(table.title)) {
@@ -293,21 +322,14 @@ QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, spec
     } else {
       
       # Else print creditation message:
-      cat("% Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu")      
+      cat(creditation.message)      
     }
   } else {
     
-    cat("% Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu")
+    cat(creditation.message)
   } 
   
   # Adding a few stargazer options:
-  
-  # Stargazer output type
-  if(missing(stargazer.type)){
-    stargazer.type <- "latex"
-  } else {
-    stargazer.type <- stargazer.type
-  }
   
   # Stargazer omit stat
   if(missing(stargazer.omit.stat)){
@@ -335,22 +357,18 @@ QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, spec
   }
   
   
-  # Stargazer custom FE if needed
+  # Adding custom FE lines to stargazer output if demeaning acceleration selected
   if(accelerate == TRUE){
     stargazer.add.lines <- vector("list", length(fixed.effects.names) + 1)  
     stargazer.add.lines <- lapply(fixed.effects.names, FUN = function(x) (c(paste(x), rep("Yes", colnumber - 1))))
     stargazer.add.lines[[length(fixed.effects.names) + 1]] <- "\\hline"
-    
-    # Omitting constant
-    stargazer.fixed.effects <- "Constant"  
+
     fixed.effects.names <- NULL  
     fixed.effects <- NULL  
     
   } else {
     stargazer.add.lines <- NULL
   }
-  
-  
   
   # Stargazer digits
   if(missing(stargazer.digits)){
@@ -442,10 +460,12 @@ QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, spec
         stargazer.notes <- "(Cluster-Robust Standard Errors in Parenthesis)"
       }
       
+    # Saving fits to list if option selected.  
       if(save.fits.as.object == TRUE){
         assign(save.fits.name, list(lm.fits = fits, cluster.robust.se = cluster.robust.se), envir = .GlobalEnv)
       }
       
+    # Returning tables:  
       if(html.only == FALSE){
         return(stargazer(fits, se = cluster.robust.se, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = stargazer.notes, add.lines = stargazer.add.lines)) } else {
           log <- capture.output(stargazer(fits, se = cluster.robust.se, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = stargazer.notes, add.lines = stargazer.add.lines))

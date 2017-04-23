@@ -7,8 +7,8 @@
 QuickReg(data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, specifications,
   fixed.effects, fixed.effects.names, fixed.effects.specifications, robust.se,
   cluster, cluster.names, table.title, out.name, dynamic.out.name, html.only,
-  silent, save.fits, demeaning.acceleration, stargazer.digits,
-  stargazer.font.size, stargazer.style, stargazer.omit.stat, stargazer.type)
+  type, silent, save.fits, demeaning.acceleration, stargazer.digits,
+  stargazer.font.size, stargazer.style, stargazer.omit.stat)
 }
 \arguments{
 \item{data}{Data frame in which all model variables are located.}
@@ -42,6 +42,8 @@ QuickReg(data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, specifications,
 \item{dynamic.out.name}{(Optional) If TRUE, adds date and time of creation in brackets between the out.name and the file extension (e.g. QuickReg (2017-04-05-14-01-27).html)}
 
 \item{html.only}{(Optional) If TRUE, no latex output produced (only HTML table). Defaults to FALSE.}
+
+\item{type}{(Optional) Specifies the type of table output that will be requested from Stargazer. Possible values are: "latex", "html", and "text". Defaults to "latex".}
 
 \item{silent}{(Optional) If TRUE, no messages are returned by the function. Defaults to FALSE.}
 
