@@ -14,11 +14,11 @@ library(sandwich)
 library(lmtest)
 ```
 
-The QuickReg package and associated function provides an easy interface for linear regression in R. This includes the option to request robust and clustered standard errors, automatic labeling, and an easy way to specify multiple regression specifications simulatenously, and a compact html or latex output (relying on the widely used "stargazer" package). 
+The QuickReg package and associated function provides an easy interface for linear regression in R. This includes the option to request robust and clustered standard errors (equivalent to STATA's ", robust" option), automatic labeling, an easy way to specify multiple regression specifications simultaneously, and a compact html or latex output (relying on the widely used "stargazer" package). 
 
-It also includes several functionalities to speed up computation, including a special implementation of the method of alternating projections that may reduce calculation time by more than 50 percent for analysis with a large number of fixed effects, and whose performance gain is increasing in the number of specifications passed to the function simultaneously. 
+QuickReg also includes a new method to speed up OLS computation. In particular, it offers the option to implement a fixed effect demeaning procedure which demeans a set of covariates and then shares this across multiple regression specifications. In tests (reported below), this reduces calculation time by more than 60 percent for analysis with a large number of fixed effects compared to base R. This relative performance gain is increasing in the number of specifications passed to the function simultaneously. 
 
-Written by Sondre U. Solstad (ssolstad@princeton.edu)
+Written by Sondre U. Solstad, Princeton University (ssolstad@princeton.edu). Send me an email if you find this package useful or want to suggest an improvement or feature.
 
 Installation instructions:
 ```{r, eval = FALSE}
@@ -53,7 +53,7 @@ QuickReg(data = mydata,
 
 ```
 
-See also the resultant html file: QuickReg.html -  https://cdn.rawgit.com/sondreus/QuickReg/e5f72f0a/QuickReg.html
+See also the resultant html file: [QuickReg.html](https://cdn.rawgit.com/sondreus/QuickReg/e5f72f0a/QuickReg.html) 
 
 ## Arguments: 
 
@@ -81,9 +81,9 @@ See also the resultant html file: QuickReg.html -  https://cdn.rawgit.com/sondre
 
 ## Explanation and detail
 
-The QuickReg function is meant to provide a comprehensive and convenient linear regression interface in R. It has been designed with the objective of being intuitive and easy to use at default settings, but with enough options for advanced users. Most importantly, the function is meant to facilitate a smooth and productive workflow.
+The QuickReg function is meant to provide a comprehensive and convenient linear regression interface in R. It has been designed with the objective of being intuitive and easy to use at default settings, but with enough options for advanced users. Most importantly, the function is meant to facilitate a smooth, quick and productive workflow.
 
-QuickReg is designed to work smoothly with knitr and Rmarkdown, and allows output to be requested from stargazer to be in "latex", "html", or "text" format.
+QuickReg is designed to work seamlessly with knitr and Rmarkdown, and allows output to be requested from stargazer in "latex", "html", or "text" format. 
 
 To illustrate the use of QuickReg, consider a researcher considering the linear relationships between a few variables. 
 
@@ -140,11 +140,13 @@ QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), specificat
          type = "html")
 ```
 
+Changing or adding specifications is faster in QuickReg, and the results are collected and presented in an easy to read table format instead of being offered one-after-the-other.
+
 We might also want robust standard errors or standard errors clustered at "group1":
 
-Base R: See this guide -  http://www.drewdimmery.com/robust-ses-in-r/
+Base R: [See this guide by Drew Dimmery](http://www.drewdimmery.com/robust-ses-in-r/) (it involves specifying a custom function, and then passing fitted models throught the function one at a time).
 
-or use QuickReg with the option "robust.se = TRUE" or "cluster ='clustering variable'":
+QuickReg: simply select "robust.se = TRUE" or "cluster ='clustering variable'":
 ```{r, message=FALSE, results ='asis', warning=FALSE}
 # QuickReg
 QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), specifications = list(1, 2, 3), 
@@ -246,7 +248,7 @@ print( paste("Total number of observations:", N))
 print( paste( "Total number of fixed effects:", length(unique(mydata[, "group1"])) + length(unique(mydata[, "group2"]))))
 ```
 
-In the above example, QuickReg provided an almost a 50 percent decrease in time spent. Gains are much larger when we increase the number of fixed effects, as in the below example:
+In the above example, QuickReg's acceleration reduced the time spent by more than 60 percent relative to the standard R (the "lm()"-function which QuickReg relies on by default). Gains can be even larger when we increase the number of fixed effects, as in the below example:
 
 ```{r, message=FALSE, cache=TRUE, warning=FALSE}
 library("microbenchmark")
@@ -302,4 +304,28 @@ See also:
 Hlavac, Marek (2015). stargazer: Well-Formatted Regression and Summary Statistics Tables.
  R package version 5.2. http://CRAN.R-project.org/package=stargazer 
 
+
+```{r, message=FALSE, cache=FALSE, warning=FALSE, echo=FALSE}
+library(QuickReg)
+
+# Loading data
+mydata <- readRDS("3d_example.RDS")
+
+# Use the QuickReg to produce a regression table     
+QuickReg(data = mydata, 
+         iv.vars = c("upop", "log_gdppc_mad", "SDI", "SDT", "war", "polity2"), 
+         iv.vars.names = c("Urban Population", "Log(GDPPC)", "Spatial distance to income", 
+          "Spatial distance to technology", "At War", "Polity2 score"), 
+         dv.vars = c("log_adoption_lvl_pc", "distance_to_frontier"), 
+         dv.vars.names = c("Technology Adoption Level", "Distance to Frontier"), 
+         specifications = list( c(1, 4, 5, 6),
+                        c(1, 2, 3, 4),
+                        c(1, 3, 4)), 
+         fixed.effects = c("ccode", "technology", "year"),
+         fixed.effects.names = c("Country FE", "Year FE", "Tech. FE"), 
+         robust.se = TRUE,
+         type = "html",
+         silent = TRUE
+         )
+```
 
