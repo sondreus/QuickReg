@@ -407,6 +407,14 @@ accelerate <- FALSE
     html.only <- html.only
   }
   
+  # Ensuring covariates returned in correct order:
+  if(missing(specifications)){
+    stargazer.order <- iv.vars
+  } else {
+    stargazer.order <- iv.vars[sort(unique(unlist(specifications)))]
+  }
+   
+  
   # Assigning all fits to a list:
   fits <- vector("list", colnumber-1)
   fits <-  lapply(paste("QuickReg.col", 1:(colnumber-1), sep = ""), FUN = get, envir=sys.frame(sys.parent(0)))
@@ -467,8 +475,8 @@ accelerate <- FALSE
       
     # Returning tables:  
       if(html.only == FALSE){
-        return(stargazer(fits, se = cluster.robust.se, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = stargazer.notes, add.lines = stargazer.add.lines)) } else {
-          log <- capture.output(stargazer(fits, se = cluster.robust.se, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = stargazer.notes, add.lines = stargazer.add.lines))
+        return(stargazer(fits, se = cluster.robust.se, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = stargazer.notes, add.lines = stargazer.add.lines, order = stargazer.order)) } else {
+          log <- capture.output(stargazer(fits, se = cluster.robust.se, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = stargazer.notes, add.lines = stargazer.add.lines, order = stargazer.order))
         }
       
     } 
@@ -523,10 +531,10 @@ accelerate <- FALSE
                        omit=stargazer.fixed.effects, covariate.labels = iv.vars.names,
                        title = table.title, 
                        dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits,
-                       omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = paste0("(", se.type," Standard Errors in Parenthesis)"), add.lines = stargazer.add.lines)) 
+                       omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = paste0("(", se.type," Standard Errors in Parenthesis)"), add.lines = stargazer.add.lines, order = stargazer.order)) 
     }  
     else {
-      log <- capture.output(stargazer(fits, se = standard.errors, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = paste0("(", se.type," Standard Errors in Parenthesis)"), add.lines = stargazer.add.lines)) 
+      log <- capture.output(stargazer(fits, se = standard.errors, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = paste0("(", se.type," Standard Errors in Parenthesis)"), add.lines = stargazer.add.lines, order = stargazer.order)) 
     }
   }
 }
