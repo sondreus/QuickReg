@@ -218,13 +218,13 @@ accelerate <- FALSE
     if(missing(specifications)){
       iv.vars.names <- iv.vars
     } else {
-      iv.vars.names <- iv.vars[unique(unlist(specifications))]
+      iv.vars.names <- iv.vars[sort(unique(unlist(specifications)))]
     } 
   } else {
     if(missing(specifications)){
       iv.vars.names <- iv.vars.names
     } else {
-      iv.vars.names <- iv.vars.names[unique(unlist(specifications))]
+      iv.vars.names <- iv.vars.names[sort(unique(unlist(specifications)))]
     }   
   }
   
