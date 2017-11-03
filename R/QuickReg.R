@@ -17,7 +17,7 @@
 #' @param out.name (Optional) Specifies the output file name. Defaults to "QuickReg.html". 
 #' @param dynamic.out.name (Optional) If TRUE, adds date and time of creation in brackets between the out.name and the file extension (e.g. QuickReg (2017-04-05-14-01-27).html)
 #' @param html.only (Optional) If TRUE, no latex output produced (only HTML table). Defaults to FALSE.
-#' @param type (Optional) Specifies the type of table output that will be requested from Stargazer. Possible values are: "latex", "html", and "text". Defaults to "latex".
+#' @param type (Optional) Specifies the type of table output that will be requested from Stargazer. Possible values are: "latex", "html", and "text". Defaults to "latex". Defaults to "latex"
 #' @param silent (Optional) If TRUE, no messages are returned by the function. Defaults to FALSE.
 #' @param save.fits (Optional) If TRUE, saves fitted lm objects in a list by the name "QuickReg.fits" adding an integer if an object by this name already exists. Defaults to FALSE.
 #' @param no.out.file (Optional) If TRUE, does not save html table to working directory. 
@@ -29,7 +29,7 @@
 #' Please see: github.com/sondreus/QuickReg
 #'
 
-QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, specifications, fixed.effects, fixed.effects.names, fixed.effects.specifications, robust.se, cluster, cluster.names, table.title, out.name, dynamic.out.name, html.only, type, silent, save.fits, no.out.file, demeaning.acceleration, stargazer.digits, stargazer.font.size, stargazer.style, stargazer.omit.stat) {
+QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, specifications, fixed.effects, fixed.effects.names, fixed.effects.specifications, robust.se, cluster, cluster.names, table.title, out.name, dynamic.out.name, html.only, silent, save.fits, no.out.file, demeaning.acceleration, digits = 2, type = "latex", omit = NULL, ...) {
   
 # Loading the "stargazer" package
 library(stargazer)  
@@ -61,21 +61,20 @@ library(stargazer)
     stop("Please specify a data frame which is not missing for all observations")
   } 
   
+
   # Checking and specifying output type
   if(missing(type)){
-    stargazer.type <- "latex"
-  } else {
-    stargazer.type <- type
+    type <- "latex"
   }
   
   #
-  if(stargazer.type == "latex"){
+  if(type == "latex"){
     creditation.message <- "% Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu"
   }
-  if(stargazer.type == "html"){
+  if(type == "html"){
     creditation.message <- "<!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->"
   }
-  if(stargazer.type == "text"){
+  if(type == "text"){
     creditation.message <- "Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu."
   }
   
@@ -283,6 +282,7 @@ accelerate <- FALSE
   }
   
   
+  
   # Removing labels if no fixed effects
   if(!is.null(fixed.effects)){
     
@@ -290,23 +290,23 @@ accelerate <- FALSE
       if(missing(fixed.effects.specifications)){
         fixed.effects.names <- fixed.effects
       } else {
-        if(length(fixed.effects.specifications) >= max(colnumber - 1, 1)){
+        if(length(c(fixed.effects.specifications, omit)) >= max(colnumber - 1, 1)){
           fixed.effects.names <- fixed.effects[order(unique(unlist(fixed.effects.specifications)))]
         } else {
           fixed.effects.names <- fixed.effects
         }
       } 
     } else { 
-      if(length(fixed.effects.names) < length(fixed.effects)){
+      if(length(c(fixed.effects.names, omit)) < length(c(fixed.effects, omit))){
         fixed.effects.names <- c(fixed.effects.names, fixed.effects[(length(fixed.effects.names)+1):length(fixed.effects)])
       }
       if(missing(fixed.effects.specifications)){
-        fixed.effects.names <- fixed.effects.names[1:length(unique(fixed.effects))]
+        fixed.effects.names <- fixed.effects.names[1:length(unique(c(fixed.effects, omit)))]
       } else {
-        if(length(fixed.effects.specifications) >= max(colnumber - 1, 1)){
+        if(length(c(fixed.effects.specifications, omit)) >= max(colnumber - 1, 1)){
           fixed.effects.names <- fixed.effects.names[order(unique(unlist(fixed.effects.specifications)))]
         } else {
-          fixed.effects.names <- fixed.effects.names[1:length(unique(fixed.effects))]
+          fixed.effects.names <- fixed.effects.names[1:length(c(fixed.effects, omit))]
         }
       }
     }
@@ -329,35 +329,7 @@ accelerate <- FALSE
     cat(creditation.message)
   } 
   
-  # Adding a few stargazer options:
-  
-  # Stargazer omit stat
-  if(missing(stargazer.omit.stat)){
-    if(accelerate == TRUE){
-      stargazer.omit.stat <- c("f", "rsq", "adj.rsq")  
-    } else {
-      stargazer.omit.stat <- "f"
-    }
-  } else {
-    stargazer.omit.stat <- stargazer.omit.stat
-  }
-  
-  # Stargazer style
-  if(missing(stargazer.style)){
-    stargazer.style <- "default"
-  } else {
-    stargazer.style <- stargazer.style
-  }
-  
-  # Stargazer font size
-  if(missing(stargazer.font.size)){
-    stargazer.font.size <- "tiny"
-  } else {
-    stargazer.font.size <- stargazer.font.size
-  }
-  
-  
-  # Adding custom FE lines to stargazer output if demeaning acceleration selected
+    # Adding custom FE lines to stargazer output if demeaning acceleration selected
   if(accelerate == TRUE){
     stargazer.add.lines <- vector("list", length(fixed.effects.names) + 1)  
     stargazer.add.lines <- lapply(fixed.effects.names, FUN = function(x) (c(paste(x), rep("Yes", colnumber - 1))))
@@ -370,14 +342,7 @@ accelerate <- FALSE
     stargazer.add.lines <- NULL
   }
   
-  # Stargazer digits
-  if(missing(stargazer.digits)){
-    stargazer.digits <- 2
-  } else {
-    stargazer.digits <- stargazer.digits
-  }
-  
-  # Constructing vector of fixed effects to exclude from table output
+    # Constructing vector of fixed effects to exclude from table output
   if(!missing(fixed.effects)){
     if(!missing(fixed.effects.specifications)){
       if(length(fixed.effects.specifications) >= max(colnumber - 1, 1)){
@@ -399,6 +364,13 @@ accelerate <- FALSE
   if(accelerate == TRUE){
     stargazer.fixed.effects <- "Constant"
   }
+  
+  # If omit provided manually, then append this:
+  if(!missing(omit)){
+    stargazer.fixed.effects <- c(stargazer.fixed.effects, omit)
+    fixed.effects.names <- c(fixed.effects.names, omit)[1:length(stargazer.fixed.effects)]
+    }
+  
   
   # Checking if user wants no console output, only html
   if(missing(html.only)){
@@ -475,8 +447,8 @@ accelerate <- FALSE
       
     # Returning tables:  
       if(html.only == FALSE){
-        return(stargazer(fits, se = cluster.robust.se, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = stargazer.notes, add.lines = stargazer.add.lines, order = stargazer.order)) } else {
-          log <- capture.output(stargazer(fits, se = cluster.robust.se, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = stargazer.notes, add.lines = stargazer.add.lines, order = stargazer.order))
+        return(stargazer(fits, se = cluster.robust.se, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, type = type,   omit.labels = fixed.effects.names, out = out.name, notes.append = TRUE, notes = stargazer.notes, add.lines = stargazer.add.lines, order = stargazer.order, ...)) } else {
+          log <- capture.output(stargazer(fits, se = cluster.robust.se, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, type = type,   omit.labels = fixed.effects.names, out = out.name, notes.append = TRUE, notes = stargazer.notes, add.lines = stargazer.add.lines, order = stargazer.order, ...))
         }
       
     } 
@@ -530,11 +502,11 @@ accelerate <- FALSE
       return(stargazer(fits, se = standard.errors, 
                        omit=stargazer.fixed.effects, covariate.labels = iv.vars.names,
                        title = table.title, 
-                       dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits,
-                       omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = paste0("(", se.type," Standard Errors in Parenthesis)"), add.lines = stargazer.add.lines, order = stargazer.order)) 
+                       dep.var.labels = dv.vars.names, type = type,  
+                       omit.labels = fixed.effects.names,  out = out.name, notes.append = TRUE, notes = paste0("(", se.type," Standard Errors in Parenthesis)"), add.lines = stargazer.add.lines, order = stargazer.order, ...)) 
     }  
     else {
-      log <- capture.output(stargazer(fits, se = standard.errors, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, style = stargazer.style, type = stargazer.type, digits = stargazer.digits, omit.labels = fixed.effects.names, omit.stat = stargazer.omit.stat, font.size = stargazer.font.size, out = out.name, notes.append = TRUE, notes = paste0("(", se.type," Standard Errors in Parenthesis)"), add.lines = stargazer.add.lines, order = stargazer.order)) 
+      log <- capture.output(stargazer(fits, se = standard.errors, omit=stargazer.fixed.effects, covariate.labels = iv.vars.names, title = table.title, dep.var.labels = dv.vars.names, type = type,   omit.labels = fixed.effects.names, out = out.name, notes.append = TRUE, notes = paste0("(", se.type," Standard Errors in Parenthesis)"), add.lines = stargazer.add.lines, order = stargazer.order, ...)) 
     }
   }
 }
