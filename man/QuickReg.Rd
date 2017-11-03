@@ -2,6 +2,7 @@
 % Please edit documentation in R/QuickReg.R
 \name{QuickReg}
 \alias{QuickReg}
+\alias{ereg}
 \title{QuickReg}
 \usage{
 QuickReg(data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, specifications,
@@ -51,7 +52,7 @@ QuickReg(data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, specifications,
 
 \item{demeaning.acceleration}{(Optional) If TRUE, attempts to speed up regression by the method of alternating projections. In particular, it utilizes the "demeanlist" function of the "lfe" package to create a matrix of all covariates demeaned by all fixed effects, and then fits the different regression specifications on this demeaned matrix. Time saved is increasing in the number of fixed effects, specifications and observations, and this method is slower when all these are low. If there are thousands of fixed effects and many specifications, time saved is potentially quite large. Note: Overrides fixed.effects.specifications, always including all variables specified in fixed.effects, and does not supply R-squared or other model statistics. Defaults to FALSE.}
 
-\item{type}{(Optional) Specifies the type of table output that will be requested from Stargazer. Possible values are: "latex", "html", and "text". Defaults to "latex".}
+\item{type}{(Optional) Specifies the type of table output that will be requested from Stargazer. Possible values are: "latex", "html", and "text". Defaults to "latex". Defaults to "latex"}
 
 \item{...}{Various options passed to the stargazer function. See ?stargazer.}
 }
@@ -66,9 +67,13 @@ Please see: github.com/sondreus/QuickReg
 \keyword{OLS}
 \keyword{QuickReg}
 \keyword{cluster}
+\keyword{coefplot}
+\keyword{glm}
+\keyword{horse-race}
 \keyword{lm}
 \keyword{reg}
 \keyword{regression}
 \keyword{robust}
 \keyword{robust.se}
+\keyword{tstat}
 

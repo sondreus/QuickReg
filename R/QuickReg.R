@@ -24,12 +24,14 @@
 #' @param demeaning.acceleration (Optional) If TRUE, attempts to speed up regression by the method of alternating projections. In particular, it utilizes the "demeanlist" function of the "lfe" package to create a matrix of all covariates demeaned by all fixed effects, and then fits the different regression specifications on this demeaned matrix. Time saved is increasing in the number of fixed effects, specifications and observations, and this method is slower when all these are low. If there are thousands of fixed effects and many specifications, time saved is potentially quite large. Note: Overrides fixed.effects.specifications, always including all variables specified in fixed.effects, and does not supply R-squared or other model statistics. Defaults to FALSE.
 #' @param ... Various options passed to the stargazer function. See ?stargazer.
 #' @keywords lm OLS robust.se robust cluster LS reg regression QuickReg
-#' @export
+#' @keywords lm coefplot robust.se robust cluster LS reg horse-race tstat regression glm
+#' @aliases ereg
+#' @export QuickReg ereg
 #' @examples
 #' Please see: github.com/sondreus/QuickReg
 #'
 
-QuickReg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, specifications, fixed.effects, fixed.effects.names, fixed.effects.specifications, robust.se, cluster, cluster.names, table.title, out.name, dynamic.out.name, html.only, silent, save.fits, no.out.file, demeaning.acceleration, digits = 2, type = "latex", omit = NULL, ...) {
+QuickReg <- ereg <- function (data, iv.vars, iv.vars.names, dv.vars, dv.vars.names, specifications, fixed.effects, fixed.effects.names, fixed.effects.specifications, robust.se, cluster, cluster.names, table.title, out.name, dynamic.out.name, html.only, silent, save.fits, no.out.file, demeaning.acceleration, digits = 2, type = "latex", omit = NULL, ...) {
   
 # Loading the "stargazer" package
 library(stargazer)  
