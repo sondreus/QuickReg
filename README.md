@@ -3817,13 +3817,13 @@ speed.test
     ##  4.823974 5.078692 5.562987 5.730423 5.877364 6.207369    20   b
     ##  2.056930 2.330866 2.505817 2.510799 2.708035 3.190829    20  a
 
-``` r
+``` {r, echo=FALSE}
 print( paste("Total number of observations:", N))
 ```
 
     ## [1] "Total number of observations: 1000"
 
-``` r
+``` {r, echo=FALSE}
 print( paste( "Total number of fixed effects:", length(unique(mydata[, "group1"])) + length(unique(mydata[, "group2"]))))
 ```
 
@@ -3880,13 +3880,13 @@ speed.test
     ##  207.44335 208.75496 215.13072 211.17020 221.93954 229.72499    10   b
     ##   75.15571  76.29382  82.12245  80.91357  87.47553  93.53871    10  a
 
-``` r
+``` {r, echo=FALSE}
 print( paste("Total number of observations:", N))
 ```
 
     ## [1] "Total number of observations: 10000"
 
-``` r
+```{r, echo=FALSE}
 print( paste( "Total number of fixed effects:", length(unique(mydata[, "group1"])) + length(unique(mydata[, "group2"]))))
 ```
 
