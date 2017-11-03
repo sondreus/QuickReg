@@ -3872,9 +3872,6 @@ speed.test
     ##  207.44335 208.75496 215.13072 211.17020 221.93954 229.72499    10   b
     ##   75.15571  76.29382  82.12245  80.91357  87.47553  93.53871    10  a
 
-``` {r, echo=FALSE}
-print( paste("Total number of observations:", N))
-```
 
     ## "Total number of observations: 10000"
     ## "Total number of fixed effects: 1100"
