@@ -41,7 +41,7 @@ QuickReg(data = mydata,
          fixed.effects.names = c("Country FE", "Year FE", "Tech. FE"), 
          robust.se = TRUE,
          type = "html",
-         silent = TRUE, star.sign = "&ast;"
+         silent = TRUE
          )
 ```
 
@@ -107,22 +107,22 @@ Distance to Frontier
 Urban Population
 </td>
 <td>
-0.0000<sup>\*\*\*</sup>
+0.0000<sup>***</sup>
 </td>
 <td>
 -0.0000
 </td>
 <td>
-0.0000<sup>\*\*\*</sup>
+0.0000<sup>***</sup>
 </td>
 <td>
-0.0000<sup>\*\*\*</sup>
+0.0000<sup>***</sup>
 </td>
 <td>
 0.0000
 </td>
 <td>
-0.0000<sup>\*\*\*</sup>
+0.0000<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -170,14 +170,14 @@ Log(GDPPC)
 <td>
 </td>
 <td>
-1.16<sup>\*\*\*</sup>
+1.16<sup>***</sup>
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-0.16<sup>\*\*\*</sup>
+0.16<sup>***</sup>
 </td>
 <td>
 </td>
@@ -223,10 +223,10 @@ Spatial distance to income
 <td>
 </td>
 <td>
-0.002<sup>\*\*\*</sup>
+0.002<sup>***</sup>
 </td>
 <td>
-0.001<sup>\*\*</sup>
+0.001<sup>**</sup>
 </td>
 <td>
 </td>
@@ -234,7 +234,7 @@ Spatial distance to income
 -0.0001
 </td>
 <td>
--0.0002<sup>\*\*</sup>
+-0.0002<sup>**</sup>
 </td>
 </tr>
 <tr>
@@ -278,22 +278,22 @@ Spatial distance to income
 Spatial distance to technology
 </td>
 <td>
-0.005<sup>\*\*\*</sup>
+0.005<sup>***</sup>
 </td>
 <td>
-0.004<sup>\*\*\*</sup>
+0.004<sup>***</sup>
 </td>
 <td>
-0.004<sup>\*\*\*</sup>
+0.004<sup>***</sup>
 </td>
 <td>
-0.0004<sup>\*\*\*</sup>
+0.0004<sup>***</sup>
 </td>
 <td>
-0.001<sup>\*\*\*</sup>
+0.001<sup>***</sup>
 </td>
 <td>
-0.001<sup>\*\*\*</sup>
+0.001<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -392,14 +392,14 @@ At War
 Polity2 score
 </td>
 <td>
--0.03<sup>\*\*\*</sup>
+-0.03<sup>***</sup>
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
--0.002<sup>\*\*\*</sup>
+-0.002<sup>***</sup>
 </td>
 <td>
 </td>
@@ -445,22 +445,22 @@ Polity2 score
 Constant
 </td>
 <td>
-2.73<sup>\*\*\*</sup>
+2.73<sup>***</sup>
 </td>
 <td>
--9.24<sup>\*\*\*</sup>
+-9.24<sup>***</sup>
 </td>
 <td>
-2.29<sup>\*\*\*</sup>
+2.29<sup>***</sup>
 </td>
 <td>
-0.51<sup>\*\*\*</sup>
+0.51<sup>***</sup>
 </td>
 <td>
--1.08<sup>\*\*\*</sup>
+-1.08<sup>***</sup>
 </td>
 <td>
-0.53<sup>\*\*\*</sup>
+0.53<sup>***</sup>
 </td>
 </tr>
 <tr>
@@ -690,7 +690,7 @@ Residual Std. Error
 </td>
 </tr>
 </table>
-See also the resultant html file: [QuickReg.html](https://cdn.rawgit.com/sondreus/QuickReg/e5f72f0a/QuickReg.html)
+See also the resultant html file: (https://cdn.rawgit.com/sondreus/QuickReg/e5f72f0a/QuickReg.html)
 
 Arguments:
 ----------
@@ -804,7 +804,7 @@ y
 x1
 </td>
 <td>
-0.06<sup>\*</sup>
+0.06<sup>*</sup>
 </td>
 </tr>
 <tr>
@@ -972,7 +972,7 @@ y
 x1
 </td>
 <td>
-0.06<sup>\*</sup>
+0.06<sup>*</sup>
 </td>
 </tr>
 <tr>
@@ -1236,7 +1236,7 @@ y
 x1
 </td>
 <td>
-0.06<sup>\*</sup>
+0.06<sup>*</sup>
 </td>
 <td>
 </td>
@@ -1512,7 +1512,7 @@ y
 x1
 </td>
 <td>
-0.06<sup>\*</sup>
+0.06<sup>*</sup>
 </td>
 <td>
 </td>
@@ -2062,22 +2062,22 @@ y
 x1
 </td>
 <td>
-0.06<sup>\*</sup>
+0.06<sup>*</sup>
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-0.06<sup>\*</sup>
+0.06<sup>*</sup>
 </td>
 <td>
-0.06<sup>\*</sup>
+0.06<sup>*</sup>
 </td>
 <td>
 </td>
 <td>
-0.06<sup>\*</sup>
+0.06<sup>*</sup>
 </td>
 </tr>
 <tr>
@@ -2514,7 +2514,7 @@ alternative.y
 x1
 </td>
 <td>
-0.06<sup>\*</sup>
+0.06<sup>*</sup>
 </td>
 <td>
 </td>
@@ -2576,7 +2576,7 @@ x2
 <td>
 </td>
 <td>
--0.06<sup>\*\*</sup>
+-0.06<sup>**</sup>
 </td>
 <td>
 </td>
@@ -2978,7 +2978,7 @@ x2
 <td>
 </td>
 <td>
--0.05<sup>\*</sup>
+-0.05<sup>*</sup>
 </td>
 <td>
 </td>
@@ -3440,7 +3440,7 @@ Variable 2
 <td>
 </td>
 <td>
--0.05<sup>\*\*</sup>
+-0.05<sup>**</sup>
 </td>
 <td>
 </td>
@@ -3495,7 +3495,7 @@ Variable 3
 <td>
 </td>
 <td>
--0.05<sup>\*</sup>
+-0.05<sup>*</sup>
 </td>
 </tr>
 <tr>
@@ -3546,13 +3546,13 @@ Constant
 0.02
 </td>
 <td>
-0.11<sup>\*</sup>
+0.11<sup>*</sup>
 </td>
 <td>
-0.12<sup>\*\*</sup>
+0.12<sup>**</sup>
 </td>
 <td>
-0.12<sup>\*</sup>
+0.12<sup>*</sup>
 </td>
 </tr>
 <tr>
