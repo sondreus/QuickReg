@@ -3929,11 +3929,11 @@ speed.test</code></pre>
 ##     QuickReg(data = mydata, iv.vars = c(&quot;x1&quot;, &quot;x2&quot;, &quot;x3&quot;), dv.vars = c(&quot;y&quot;,      &quot;alternative.y&quot;), specifications = list(c(1), c(2, 3), c(1,      2, 3)), fixed.effects = c(&quot;group1&quot;, &quot;group2&quot;), html.only = TRUE,      silent = TRUE, out.name = &quot;QuickReg.fast&quot;, demeaning.acceleration = TRUE)
 ##       min       lq     mean   median       uq      max neval cld
 ##  4.823974 5.078692 5.562987 5.730423 5.877364 6.207369    20   b
-##  2.056930 2.330866 2.505817 2.510799 2.708035 3.190829    20  a</code></pre>
-<p><code>{r, echo=FALSE} print( paste(&quot;Total number of observations:&quot;, N))</code></p>
-<pre><code>## [1] &quot;Total number of observations: 1000&quot;</code></pre>
-<p><code>{r, echo=FALSE} print( paste( &quot;Total number of fixed effects:&quot;, length(unique(mydata[, &quot;group1&quot;])) + length(unique(mydata[, &quot;group2&quot;]))))</code></p>
-<pre><code>## [1] &quot;Total number of fixed effects: 200&quot;</code></pre>
+##  2.056930 2.330866 2.505817 2.510799 2.708035 3.190829    20  a
+
+
+## &quot;Total number of observations: 1000&quot;
+## &quot;Total number of fixed effects: 200&quot;</code></pre>
 <p>In the above example, QuickReg’s acceleration reduced the time spent by more than 60 percent relative to the standard R (the “lm()”-function which QuickReg relies on by default). Gains can be even larger when we increase the number of fixed effects, as in the below example:</p>
 <pre class="r"><code>library(&quot;microbenchmark&quot;)
 
@@ -3981,9 +3981,8 @@ speed.test</code></pre>
 ##  207.44335 208.75496 215.13072 211.17020 221.93954 229.72499    10   b
 ##   75.15571  76.29382  82.12245  80.91357  87.47553  93.53871    10  a</code></pre>
 <p><code>{r, echo=FALSE} print( paste(&quot;Total number of observations:&quot;, N))</code></p>
-<pre><code>## [1] &quot;Total number of observations: 10000&quot;</code></pre>
-<p><code>{r, echo=FALSE} print( paste( &quot;Total number of fixed effects:&quot;, length(unique(mydata[, &quot;group1&quot;])) + length(unique(mydata[, &quot;group2&quot;]))))</code></p>
-<pre><code>## [1] &quot;Total number of fixed effects: 1100&quot;</code></pre>
+<pre><code>## &quot;Total number of observations: 10000&quot;
+## &quot;Total number of fixed effects: 1100&quot;</code></pre>
 </div>
 <div id="acknowledgements" class="section level2">
 <h2>Acknowledgements</h2>

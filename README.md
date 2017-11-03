@@ -3817,17 +3817,9 @@ speed.test
     ##  4.823974 5.078692 5.562987 5.730423 5.877364 6.207369    20   b
     ##  2.056930 2.330866 2.505817 2.510799 2.708035 3.190829    20  a
 
-``` {r, echo=FALSE}
-print( paste("Total number of observations:", N))
-```
 
-    ## [1] "Total number of observations: 1000"
-
-``` {r, echo=FALSE}
-print( paste( "Total number of fixed effects:", length(unique(mydata[, "group1"])) + length(unique(mydata[, "group2"]))))
-```
-
-    ## [1] "Total number of fixed effects: 200"
+    ## "Total number of observations: 1000"
+    ## "Total number of fixed effects: 200"
 
 In the above example, QuickReg's acceleration reduced the time spent by more than 60 percent relative to the standard R (the "lm()"-function which QuickReg relies on by default). Gains can be even larger when we increase the number of fixed effects, as in the below example:
 
@@ -3884,13 +3876,8 @@ speed.test
 print( paste("Total number of observations:", N))
 ```
 
-    ## [1] "Total number of observations: 10000"
-
-```{r, echo=FALSE}
-print( paste( "Total number of fixed effects:", length(unique(mydata[, "group1"])) + length(unique(mydata[, "group2"]))))
-```
-
-    ## [1] "Total number of fixed effects: 1100"
+    ## "Total number of observations: 10000"
+    ## "Total number of fixed effects: 1100"
 
 Acknowledgements
 ----------------
