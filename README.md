@@ -41,7 +41,7 @@ QuickReg(data = mydata,
          fixed.effects.names = c("Country FE", "Year FE", "Tech. FE"), 
          robust.se = TRUE,
          type = "html",
-         silent = TRUE, star.sign = "\*"
+         silent = TRUE, star.sign = "&ast;"
          )
 ```
 
