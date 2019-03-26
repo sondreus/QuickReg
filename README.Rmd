@@ -329,3 +329,7 @@ QuickReg(data = mydata,
          )
 ```
 
+## Citation:
+Solstad, Sondre Ulvund (2018). *QuickReg: A Fast and Easy OLS Interface in R*. https://github.com/sondreus/QuickReg#quickreg
+
+
