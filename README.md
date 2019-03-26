@@ -47,7 +47,7 @@ QuickReg(data = mydata,
 
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2019-03-25 20:25:46)</strong>
+<strong>QuickReg Table (created: 2019-03-25 20:31:56)</strong>
 </caption>
 <tr>
 <td colspan="7" style="border-bottom: 1px solid black">
@@ -769,16 +769,16 @@ summary(lm(y ~ x1, data = mydata))
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -2.9753 -0.7130  0.0187  0.6779  3.7811 
+    ## -2.9844 -0.6539  0.0227  0.6300  3.2018 
     ## 
     ## Coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)
-    ## (Intercept)  0.04379    0.03102   1.412    0.158
-    ## x1           0.03868    0.03081   1.256    0.210
+    ## (Intercept)  0.02495    0.03155   0.791    0.429
+    ## x1          -0.02814    0.03210  -0.877    0.381
     ## 
-    ## Residual standard error: 0.9808 on 998 degrees of freedom
-    ## Multiple R-squared:  0.001577,   Adjusted R-squared:  0.0005766 
-    ## F-statistic: 1.576 on 1 and 998 DF,  p-value: 0.2096
+    ## Residual standard error: 0.9978 on 998 degrees of freedom
+    ## Multiple R-squared:  0.0007692,  Adjusted R-squared:  -0.000232 
+    ## F-statistic: 0.7683 on 1 and 998 DF,  p-value: 0.381
 
 And then in QuickReg:
 
@@ -790,7 +790,7 @@ QuickReg(data = mydata, dv.vars = "y", iv.vars = "x1", type = "html")
 <!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2019-03-25 20:25:52)</strong>
+<strong>QuickReg Table (created: 2019-03-25 20:32:01)</strong>
 </caption>
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -825,14 +825,14 @@ y
 x1
 </td>
 <td>
-0.039
+-0.028
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 </tr>
 <tr>
@@ -846,14 +846,14 @@ x1
 Constant
 </td>
 <td>
-0.044
+0.025
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 </tr>
 <tr>
@@ -879,7 +879,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.002
+0.001
 </td>
 </tr>
 <tr>
@@ -887,7 +887,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.001
+-0.0002
 </td>
 </tr>
 <tr>
@@ -895,7 +895,7 @@ Adjusted R<sup>2</sup>
 Residual Std. Error
 </td>
 <td>
-0.981 (df = 998)
+0.998 (df = 998)
 </td>
 </tr>
 <tr>
@@ -903,7 +903,7 @@ Residual Std. Error
 F Statistic
 </td>
 <td>
-1.576 (df = 1; 998)
+0.768 (df = 1; 998)
 </td>
 </tr>
 <tr>
@@ -941,18 +941,18 @@ summary(lm(y ~ x1 + x2 + x3, data = mydata))
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -2.9847 -0.7029  0.0249  0.6750  3.7879 
+    ## -3.0063 -0.6598  0.0200  0.6317  3.1845 
     ## 
     ## Coefficients:
-    ##             Estimate Std. Error t value Pr(>|t|)
-    ## (Intercept)  0.04039    0.03105   1.301    0.194
-    ## x1           0.03749    0.03086   1.215    0.225
-    ## x2           0.03456    0.03013   1.147    0.252
-    ## x3          -0.04674    0.03251  -1.438    0.151
+    ##              Estimate Std. Error t value Pr(>|t|)
+    ## (Intercept)  0.025526   0.031687   0.806    0.421
+    ## x1          -0.027576   0.032155  -0.858    0.391
+    ## x2          -0.028927   0.031189  -0.927    0.354
+    ## x3           0.008153   0.030693   0.266    0.791
     ## 
-    ## Residual standard error: 0.9802 on 996 degrees of freedom
-    ## Multiple R-squared:  0.004872,   Adjusted R-squared:  0.001875 
-    ## F-statistic: 1.626 on 3 and 996 DF,  p-value: 0.1818
+    ## Residual standard error: 0.9983 on 996 degrees of freedom
+    ## Multiple R-squared:  0.001724,   Adjusted R-squared:  -0.001283 
+    ## F-statistic: 0.5733 on 3 and 996 DF,  p-value: 0.6327
 
 QuickReg:
 
@@ -964,7 +964,7 @@ QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), type = "ht
 <!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2019-03-25 20:25:57)</strong>
+<strong>QuickReg Table (created: 2019-03-25 20:32:05)</strong>
 </caption>
 <tr>
 <td colspan="2" style="border-bottom: 1px solid black">
@@ -999,14 +999,14 @@ y
 x1
 </td>
 <td>
-0.037
+-0.028
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 </tr>
 <tr>
@@ -1020,14 +1020,14 @@ x1
 x2
 </td>
 <td>
-0.035
+-0.029
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.030)
+(0.031)
 </td>
 </tr>
 <tr>
@@ -1041,14 +1041,14 @@ x2
 x3
 </td>
 <td>
--0.047
+0.008
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.033)
+(0.031)
 </td>
 </tr>
 <tr>
@@ -1062,14 +1062,14 @@ x3
 Constant
 </td>
 <td>
-0.040
+0.026
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 </tr>
 <tr>
@@ -1095,7 +1095,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.005
+0.002
 </td>
 </tr>
 <tr>
@@ -1103,7 +1103,7 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.002
+-0.001
 </td>
 </tr>
 <tr>
@@ -1111,7 +1111,7 @@ Adjusted R<sup>2</sup>
 Residual Std. Error
 </td>
 <td>
-0.980 (df = 996)
+0.998 (df = 996)
 </td>
 </tr>
 <tr>
@@ -1119,7 +1119,7 @@ Residual Std. Error
 F Statistic
 </td>
 <td>
-1.626 (df = 3; 996)
+0.573 (df = 3; 996)
 </td>
 </tr>
 <tr>
@@ -1157,16 +1157,16 @@ summary(lm(y ~ x1, data = mydata))
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -2.9753 -0.7130  0.0187  0.6779  3.7811 
+    ## -2.9844 -0.6539  0.0227  0.6300  3.2018 
     ## 
     ## Coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)
-    ## (Intercept)  0.04379    0.03102   1.412    0.158
-    ## x1           0.03868    0.03081   1.256    0.210
+    ## (Intercept)  0.02495    0.03155   0.791    0.429
+    ## x1          -0.02814    0.03210  -0.877    0.381
     ## 
-    ## Residual standard error: 0.9808 on 998 degrees of freedom
-    ## Multiple R-squared:  0.001577,   Adjusted R-squared:  0.0005766 
-    ## F-statistic: 1.576 on 1 and 998 DF,  p-value: 0.2096
+    ## Residual standard error: 0.9978 on 998 degrees of freedom
+    ## Multiple R-squared:  0.0007692,  Adjusted R-squared:  -0.000232 
+    ## F-statistic: 0.7683 on 1 and 998 DF,  p-value: 0.381
 
 ``` r
 summary(lm(y ~ x2, data = mydata))
@@ -1178,16 +1178,16 @@ summary(lm(y ~ x2, data = mydata))
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -3.0064 -0.6999  0.0071  0.6799  3.7647 
+    ## -3.0404 -0.6593  0.0222  0.6398  3.2022 
     ## 
     ## Coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)
-    ## (Intercept)  0.04288    0.03104   1.381    0.168
-    ## x2           0.03565    0.03009   1.185    0.236
+    ## (Intercept)  0.02590    0.03158   0.820    0.412
+    ## x2          -0.03004    0.03113  -0.965    0.335
     ## 
-    ## Residual standard error: 0.9809 on 998 degrees of freedom
-    ## Multiple R-squared:  0.001404,   Adjusted R-squared:  0.0004038 
-    ## F-statistic: 1.404 on 1 and 998 DF,  p-value: 0.2364
+    ## Residual standard error: 0.9977 on 998 degrees of freedom
+    ## Multiple R-squared:  0.0009324,  Adjusted R-squared:  -6.867e-05 
+    ## F-statistic: 0.9314 on 1 and 998 DF,  p-value: 0.3347
 
 ``` r
 summary(lm(y ~ x3, data = mydata))
@@ -1199,16 +1199,16 @@ summary(lm(y ~ x3, data = mydata))
     ## 
     ## Residuals:
     ##     Min      1Q  Median      3Q     Max 
-    ## -2.9981 -0.6966  0.0171  0.6865  3.7740 
+    ## -3.0493 -0.6595  0.0090  0.6383  3.2268 
     ## 
     ## Coefficients:
     ##             Estimate Std. Error t value Pr(>|t|)
-    ## (Intercept)  0.04243    0.03104   1.367    0.172
-    ## x3          -0.04480    0.03251  -1.378    0.168
+    ## (Intercept) 0.024017   0.031651   0.759    0.448
+    ## x3          0.008293   0.030640   0.271    0.787
     ## 
-    ## Residual standard error: 0.9806 on 998 degrees of freedom
-    ## Multiple R-squared:  0.0019, Adjusted R-squared:  0.0008999 
-    ## F-statistic:   1.9 on 1 and 998 DF,  p-value: 0.1684
+    ## Residual standard error: 0.9981 on 998 degrees of freedom
+    ## Multiple R-squared:  7.34e-05,   Adjusted R-squared:  -0.0009285 
+    ## F-statistic: 0.07326 on 1 and 998 DF,  p-value: 0.7867
 
 QuickReg:
 
@@ -1221,7 +1221,7 @@ QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), specificat
 <!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2019-03-25 20:25:57)</strong>
+<strong>QuickReg Table (created: 2019-03-25 20:32:06)</strong>
 </caption>
 <tr>
 <td colspan="4" style="border-bottom: 1px solid black">
@@ -1269,7 +1269,7 @@ y
 x1
 </td>
 <td>
-0.039
+-0.028
 </td>
 <td>
 </td>
@@ -1280,7 +1280,7 @@ x1
 <td style="text-align:left">
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
 </td>
@@ -1304,7 +1304,7 @@ x2
 <td>
 </td>
 <td>
-0.036
+-0.030
 </td>
 <td>
 </td>
@@ -1315,7 +1315,7 @@ x2
 <td>
 </td>
 <td>
-(0.030)
+(0.031)
 </td>
 <td>
 </td>
@@ -1339,7 +1339,7 @@ x3
 <td>
 </td>
 <td>
--0.045
+0.008
 </td>
 </tr>
 <tr>
@@ -1350,7 +1350,7 @@ x3
 <td>
 </td>
 <td>
-(0.033)
+(0.031)
 </td>
 </tr>
 <tr>
@@ -1368,26 +1368,26 @@ x3
 Constant
 </td>
 <td>
-0.044
+0.025
 </td>
 <td>
-0.043
+0.026
 </td>
 <td>
-0.042
+0.024
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 </tr>
 <tr>
@@ -1423,13 +1423,13 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.002
+0.001
 </td>
 <td>
 0.001
 </td>
 <td>
-0.002
+0.0001
 </td>
 </tr>
 <tr>
@@ -1437,13 +1437,13 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.001
+-0.0002
 </td>
 <td>
-0.0004
+-0.0001
 </td>
 <td>
-0.001
+-0.001
 </td>
 </tr>
 <tr>
@@ -1451,13 +1451,13 @@ Adjusted R<sup>2</sup>
 Residual Std. Error (df = 998)
 </td>
 <td>
-0.981
+0.998
 </td>
 <td>
-0.981
+0.998
 </td>
 <td>
-0.981
+0.998
 </td>
 </tr>
 <tr>
@@ -1465,13 +1465,13 @@ Residual Std. Error (df = 998)
 F Statistic (df = 1; 998)
 </td>
 <td>
-1.576
+0.768
 </td>
 <td>
-1.404
+0.931
 </td>
 <td>
-1.900
+0.073
 </td>
 </tr>
 <tr>
@@ -1511,7 +1511,7 @@ QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), specificat
 <!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2019-03-25 20:25:58)</strong>
+<strong>QuickReg Table (created: 2019-03-25 20:32:07)</strong>
 </caption>
 <tr>
 <td colspan="4" style="border-bottom: 1px solid black">
@@ -1559,7 +1559,7 @@ y
 x1
 </td>
 <td>
-0.039
+-0.028
 </td>
 <td>
 </td>
@@ -1570,7 +1570,7 @@ x1
 <td style="text-align:left">
 </td>
 <td>
-(0.029)
+(0.033)
 </td>
 <td>
 </td>
@@ -1594,7 +1594,7 @@ x2
 <td>
 </td>
 <td>
-0.036
+-0.030
 </td>
 <td>
 </td>
@@ -1605,7 +1605,7 @@ x2
 <td>
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
 </td>
@@ -1629,7 +1629,7 @@ x3
 <td>
 </td>
 <td>
--0.045
+0.008
 </td>
 </tr>
 <tr>
@@ -1640,7 +1640,7 @@ x3
 <td>
 </td>
 <td>
-(0.033)
+(0.031)
 </td>
 </tr>
 <tr>
@@ -1658,26 +1658,26 @@ x3
 Constant
 </td>
 <td>
-0.044
+0.025
 </td>
 <td>
-0.043
+0.026
 </td>
 <td>
-0.042
+0.024
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 </tr>
 <tr>
@@ -1713,13 +1713,13 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.002
+0.001
 </td>
 <td>
 0.001
 </td>
 <td>
-0.002
+0.0001
 </td>
 </tr>
 <tr>
@@ -1727,13 +1727,13 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.001
+-0.0002
 </td>
 <td>
-0.0004
+-0.0001
 </td>
 <td>
-0.001
+-0.001
 </td>
 </tr>
 <tr>
@@ -1741,13 +1741,13 @@ Adjusted R<sup>2</sup>
 Residual Std. Error (df = 998)
 </td>
 <td>
-0.981
+0.998
 </td>
 <td>
-0.981
+0.998
 </td>
 <td>
-0.981
+0.998
 </td>
 </tr>
 <tr>
@@ -1755,13 +1755,13 @@ Residual Std. Error (df = 998)
 F Statistic (df = 1; 998)
 </td>
 <td>
-1.576
+0.768
 </td>
 <td>
-1.404
+0.931
 </td>
 <td>
-1.900
+0.073
 </td>
 </tr>
 <tr>
@@ -1792,7 +1792,7 @@ QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), specificat
 <!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2019-03-25 20:25:58)</strong>
+<strong>QuickReg Table (created: 2019-03-25 20:32:07)</strong>
 </caption>
 <tr>
 <td colspan="4" style="border-bottom: 1px solid black">
@@ -1840,7 +1840,7 @@ y
 x1
 </td>
 <td>
-0.039
+-0.028
 </td>
 <td>
 </td>
@@ -1851,7 +1851,7 @@ x1
 <td style="text-align:left">
 </td>
 <td>
-(0.034)
+(0.026)
 </td>
 <td>
 </td>
@@ -1875,7 +1875,7 @@ x2
 <td>
 </td>
 <td>
-0.036
+-0.030
 </td>
 <td>
 </td>
@@ -1886,7 +1886,7 @@ x2
 <td>
 </td>
 <td>
-(0.033)
+(0.028)
 </td>
 <td>
 </td>
@@ -1910,7 +1910,7 @@ x3
 <td>
 </td>
 <td>
--0.045
+0.008
 </td>
 </tr>
 <tr>
@@ -1921,7 +1921,7 @@ x3
 <td>
 </td>
 <td>
-(0.037)
+(0.026)
 </td>
 </tr>
 <tr>
@@ -1939,26 +1939,26 @@ x3
 Constant
 </td>
 <td>
-0.044<sup>\*\*</sup>
+0.025
 </td>
 <td>
-0.043<sup>\*</sup>
+0.026
 </td>
 <td>
-0.042<sup>\*</sup>
+0.024
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.022)
+(0.039)
 </td>
 <td>
-(0.022)
+(0.039)
 </td>
 <td>
-(0.022)
+(0.040)
 </td>
 </tr>
 <tr>
@@ -1994,13 +1994,13 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.002
+0.001
 </td>
 <td>
 0.001
 </td>
 <td>
-0.002
+0.0001
 </td>
 </tr>
 <tr>
@@ -2008,13 +2008,13 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.001
+-0.0002
 </td>
 <td>
-0.0004
+-0.0001
 </td>
 <td>
-0.001
+-0.001
 </td>
 </tr>
 <tr>
@@ -2022,13 +2022,13 @@ Adjusted R<sup>2</sup>
 Residual Std. Error (df = 998)
 </td>
 <td>
-0.981
+0.998
 </td>
 <td>
-0.981
+0.998
 </td>
 <td>
-0.981
+0.998
 </td>
 </tr>
 <tr>
@@ -2036,13 +2036,13 @@ Residual Std. Error (df = 998)
 F Statistic (df = 1; 998)
 </td>
 <td>
-1.576
+0.768
 </td>
 <td>
-1.404
+0.931
 </td>
 <td>
-1.900
+0.073
 </td>
 </tr>
 <tr>
@@ -2077,7 +2077,7 @@ QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"),
 <!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2019-03-25 20:25:59)</strong>
+<strong>QuickReg Table (created: 2019-03-25 20:32:08)</strong>
 </caption>
 <tr>
 <td colspan="8" style="border-bottom: 1px solid black">
@@ -2137,44 +2137,44 @@ y
 x1
 </td>
 <td>
-0.039
+-0.028
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-0.040
+-0.029
 </td>
 <td>
-0.037
+-0.027
 </td>
 <td>
 </td>
 <td>
-0.037
+-0.028
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.029)
+(0.033)
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-(0.029)
+(0.033)
 </td>
 <td>
-(0.029)
+(0.033)
 </td>
 <td>
 </td>
 <td>
-(0.029)
+(0.033)
 </td>
 </tr>
 <tr>
@@ -2202,20 +2202,20 @@ x2
 <td>
 </td>
 <td>
-0.036
+-0.030
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-0.033
+-0.029
 </td>
 <td>
-0.037
+-0.030
 </td>
 <td>
-0.035
+-0.029
 </td>
 </tr>
 <tr>
@@ -2224,20 +2224,20 @@ x2
 <td>
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-(0.031)
+(0.033)
 </td>
 <td>
-(0.031)
+(0.033)
 </td>
 <td>
-(0.031)
+(0.033)
 </td>
 </tr>
 <tr>
@@ -2267,18 +2267,18 @@ x3
 <td>
 </td>
 <td>
--0.045
+0.008
 </td>
 <td>
--0.046
+0.009
 </td>
 <td>
 </td>
 <td>
--0.046
+0.007
 </td>
 <td>
--0.047
+0.008
 </td>
 </tr>
 <tr>
@@ -2289,18 +2289,18 @@ x3
 <td>
 </td>
 <td>
-(0.033)
+(0.031)
 </td>
 <td>
-(0.033)
+(0.031)
 </td>
 <td>
 </td>
 <td>
-(0.033)
+(0.031)
 </td>
 <td>
-(0.033)
+(0.031)
 </td>
 </tr>
 <tr>
@@ -2326,50 +2326,50 @@ x3
 Constant
 </td>
 <td>
-0.044
+0.025
 </td>
 <td>
-0.043
+0.026
 </td>
 <td>
-0.042
+0.024
 </td>
 <td>
-0.042
+0.024
 </td>
 <td>
-0.042
+0.026
 </td>
 <td>
-0.041
+0.025
 </td>
 <td>
-0.040
+0.026
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 </tr>
 <tr>
@@ -2425,7 +2425,13 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.002
+0.001
+</td>
+<td>
+0.001
+</td>
+<td>
+0.0001
 </td>
 <td>
 0.001
@@ -2434,16 +2440,10 @@ R<sup>2</sup>
 0.002
 </td>
 <td>
-0.004
+0.001
 </td>
 <td>
-0.003
-</td>
-<td>
-0.003
-</td>
-<td>
-0.005
+0.002
 </td>
 </tr>
 <tr>
@@ -2451,25 +2451,25 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.001
+-0.0002
 </td>
 <td>
-0.0004
+-0.0001
 </td>
 <td>
-0.001
+-0.001
 </td>
 <td>
-0.002
+-0.001
 </td>
 <td>
-0.001
+-0.0003
 </td>
 <td>
-0.001
+-0.001
 </td>
 <td>
-0.002
+-0.001
 </td>
 </tr>
 <tr>
@@ -2477,25 +2477,25 @@ Adjusted R<sup>2</sup>
 Residual Std. Error
 </td>
 <td>
-0.981 (df = 998)
+0.998 (df = 998)
 </td>
 <td>
-0.981 (df = 998)
+0.998 (df = 998)
 </td>
 <td>
-0.981 (df = 998)
+0.998 (df = 998)
 </td>
 <td>
-0.980 (df = 997)
+0.998 (df = 997)
 </td>
 <td>
-0.981 (df = 997)
+0.998 (df = 997)
 </td>
 <td>
-0.980 (df = 997)
+0.998 (df = 997)
 </td>
 <td>
-0.980 (df = 996)
+0.998 (df = 996)
 </td>
 </tr>
 <tr>
@@ -2503,25 +2503,25 @@ Residual Std. Error
 F Statistic
 </td>
 <td>
-1.576 (df = 1; 998)
+0.768 (df = 1; 998)
 </td>
 <td>
-1.404 (df = 1; 998)
+0.931 (df = 1; 998)
 </td>
 <td>
-1.900 (df = 1; 998)
+0.073 (df = 1; 998)
 </td>
 <td>
-1.780 (df = 2; 997)
+0.430 (df = 2; 997)
 </td>
 <td>
-1.403 (df = 2; 997)
+0.825 (df = 2; 997)
 </td>
 <td>
-1.699 (df = 2; 997)
+0.492 (df = 2; 997)
 </td>
 <td>
-1.626 (df = 3; 996)
+0.573 (df = 3; 996)
 </td>
 </tr>
 <tr>
@@ -2555,7 +2555,7 @@ QuickReg(data = mydata, dv.vars = c("y", "alternative.y"), iv.vars = c("x1", "x2
 <!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2019-03-25 20:25:59)</strong>
+<strong>QuickReg Table (created: 2019-03-25 20:32:08)</strong>
 </caption>
 <tr>
 <td colspan="7" style="border-bottom: 1px solid black">
@@ -2615,14 +2615,14 @@ alternative.y
 x1
 </td>
 <td>
-0.039
+-0.028
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
--0.023
+-0.019
 </td>
 <td>
 </td>
@@ -2633,14 +2633,14 @@ x1
 <td style="text-align:left">
 </td>
 <td>
-(0.029)
+(0.033)
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-(0.030)
+(0.032)
 </td>
 <td>
 </td>
@@ -2670,14 +2670,14 @@ x2
 <td>
 </td>
 <td>
-0.036
+-0.030
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
--0.010
+0.015
 </td>
 <td>
 </td>
@@ -2688,7 +2688,7 @@ x2
 <td>
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
 </td>
@@ -2725,14 +2725,14 @@ x3
 <td>
 </td>
 <td>
--0.045
+0.008
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
--0.022
+0.089<sup>\*\*\*</sup>
 </td>
 </tr>
 <tr>
@@ -2743,14 +2743,14 @@ x3
 <td>
 </td>
 <td>
-(0.033)
+(0.031)
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-(0.032)
+(0.030)
 </td>
 </tr>
 <tr>
@@ -2774,37 +2774,28 @@ x3
 Constant
 </td>
 <td>
-0.044
+0.025
 </td>
 <td>
-0.043
+0.026
 </td>
 <td>
-0.042
+0.024
 </td>
 <td>
-0.002
+-0.029
 </td>
 <td>
-0.002
+-0.030
 </td>
 <td>
-0.0003
+-0.036
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.031)
-</td>
-<td>
-(0.031)
-</td>
-<td>
-(0.031)
-</td>
-<td>
 (0.032)
 </td>
 <td>
@@ -2812,6 +2803,15 @@ Constant
 </td>
 <td>
 (0.032)
+</td>
+<td>
+(0.031)
+</td>
+<td>
+(0.031)
+</td>
+<td>
+(0.031)
 </td>
 </tr>
 <tr>
@@ -2862,13 +2862,7 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.002
-</td>
-<td>
 0.001
-</td>
-<td>
-0.002
 </td>
 <td>
 0.001
@@ -2879,28 +2873,34 @@ R<sup>2</sup>
 <td>
 0.0004
 </td>
+<td>
+0.0003
+</td>
+<td>
+0.009
+</td>
 </tr>
 <tr>
 <td style="text-align:left">
 Adjusted R<sup>2</sup>
 </td>
 <td>
-0.001
+-0.0002
 </td>
 <td>
-0.0004
-</td>
-<td>
-0.001
-</td>
-<td>
--0.0005
+-0.0001
 </td>
 <td>
 -0.001
 </td>
 <td>
 -0.001
+</td>
+<td>
+-0.001
+</td>
+<td>
+0.008
 </td>
 </tr>
 <tr>
@@ -2908,22 +2908,22 @@ Adjusted R<sup>2</sup>
 Residual Std. Error (df = 998)
 </td>
 <td>
-0.981
+0.998
 </td>
 <td>
-0.981
+0.998
 </td>
 <td>
-0.981
+0.998
 </td>
 <td>
-1.008
+0.971
 </td>
 <td>
-1.008
+0.971
 </td>
 <td>
-1.008
+0.966
 </td>
 </tr>
 <tr>
@@ -2931,22 +2931,22 @@ Residual Std. Error (df = 998)
 F Statistic (df = 1; 998)
 </td>
 <td>
-1.576
+0.768
 </td>
 <td>
-1.404
+0.931
 </td>
 <td>
-1.900
+0.073
 </td>
 <td>
-0.529
+0.372
 </td>
 <td>
-0.114
+0.257
 </td>
 <td>
-0.430
+8.965<sup>\*\*\*</sup>
 </td>
 </tr>
 <tr>
@@ -2980,7 +2980,7 @@ QuickReg(data = mydata, dv.vars = c("y", "alternative.y"), iv.vars = c("x1", "x2
 <!-- % Automated Regression specification, labeling and SE calculations created using QuickReg by Sondre U. Solstad, Princeton University. E-mail: ssolstad [at] princeton.edu -->
 <table style="text-align:center">
 <caption>
-<strong>QuickReg Table (created: 2019-03-25 20:26:00)</strong>
+<strong>QuickReg Table (created: 2019-03-25 20:32:09)</strong>
 </caption>
 <tr>
 <td colspan="7" style="border-bottom: 1px solid black">
@@ -3040,14 +3040,14 @@ alternative.y
 x1
 </td>
 <td>
-0.041
+-0.027
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
--0.023
+-0.018
 </td>
 <td>
 </td>
@@ -3058,14 +3058,14 @@ x1
 <td style="text-align:left">
 </td>
 <td>
-(0.029)
+(0.033)
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-(0.030)
+(0.031)
 </td>
 <td>
 </td>
@@ -3095,14 +3095,14 @@ x2
 <td>
 </td>
 <td>
-0.036
+-0.033
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
--0.010
+0.023
 </td>
 <td>
 </td>
@@ -3113,14 +3113,14 @@ x2
 <td>
 </td>
 <td>
-(0.031)
+(0.032)
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-(0.030)
+(0.029)
 </td>
 <td>
 </td>
@@ -3150,14 +3150,14 @@ x3
 <td>
 </td>
 <td>
--0.042
+0.021
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
--0.017
+0.080<sup>\*\*\*</sup>
 </td>
 </tr>
 <tr>
@@ -3168,14 +3168,14 @@ x3
 <td>
 </td>
 <td>
-(0.033)
+(0.030)
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-(0.032)
+(0.030)
 </td>
 </tr>
 <tr>
@@ -3199,44 +3199,44 @@ x3
 Constant
 </td>
 <td>
--0.022
+-0.008
 </td>
 <td>
--0.024
+-0.006
 </td>
 <td>
--0.007
+-0.004
 </td>
 <td>
-0.149
+0.101
 </td>
 <td>
-0.148
+0.108
 </td>
 <td>
-0.152
+0.095
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.142)
+(0.148)
 </td>
 <td>
-(0.143)
+(0.148)
 </td>
 <td>
-(0.142)
+(0.148)
 </td>
 <td>
-(0.142)
+(0.127)
 </td>
 <td>
-(0.142)
+(0.127)
 </td>
 <td>
-(0.142)
+(0.127)
 </td>
 </tr>
 <tr>
@@ -3337,22 +3337,22 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.013
+0.025
 </td>
 <td>
-0.013
+0.026
 </td>
 <td>
-0.013
+0.025
 </td>
 <td>
-0.015
+0.025
 </td>
 <td>
-0.015
+0.025
 </td>
 <td>
-0.015
+0.032
 </td>
 </tr>
 <tr>
@@ -3360,22 +3360,22 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.006
+0.007
 </td>
 <td>
--0.006
+0.007
 </td>
 <td>
--0.006
+0.006
 </td>
 <td>
--0.004
+0.006
 </td>
 <td>
--0.004
+0.006
 </td>
 <td>
--0.004
+0.013
 </td>
 </tr>
 <tr>
@@ -3383,22 +3383,22 @@ Adjusted R<sup>2</sup>
 Residual Std. Error (df = 980)
 </td>
 <td>
-0.984
+0.994
 </td>
 <td>
-0.984
+0.994
 </td>
 <td>
-0.984
+0.995
 </td>
 <td>
-1.009
+0.967
 </td>
 <td>
-1.010
+0.967
 </td>
 <td>
-1.010
+0.964
 </td>
 </tr>
 <tr>
@@ -3406,22 +3406,22 @@ Residual Std. Error (df = 980)
 F Statistic (df = 19; 980)
 </td>
 <td>
-0.702
+1.345
 </td>
 <td>
-0.684
+1.366
 </td>
 <td>
-0.697
+1.332
 </td>
 <td>
-0.797
+1.329
 </td>
 <td>
-0.774
+1.340
 </td>
 <td>
-0.783
+1.701<sup>\*\*</sup>
 </td>
 </tr>
 <tr>
@@ -3525,14 +3525,14 @@ Alternative Outcome
 Variable 1
 </td>
 <td>
-0.041
+-0.027
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
--0.023
+-0.018
 </td>
 <td>
 </td>
@@ -3543,14 +3543,14 @@ Variable 1
 <td style="text-align:left">
 </td>
 <td>
-(0.035)
+(0.023)
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-(0.042)
+(0.047)
 </td>
 <td>
 </td>
@@ -3580,14 +3580,14 @@ Variable 2
 <td>
 </td>
 <td>
-0.036
+-0.033
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
--0.010
+0.023
 </td>
 <td>
 </td>
@@ -3598,14 +3598,14 @@ Variable 2
 <td>
 </td>
 <td>
-(0.036)
+(0.031)
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-(0.036)
+(0.021)
 </td>
 <td>
 </td>
@@ -3635,14 +3635,14 @@ Variable 3
 <td>
 </td>
 <td>
--0.042
+0.021
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
--0.017
+0.080<sup>\*\*\*</sup>
 </td>
 </tr>
 <tr>
@@ -3653,14 +3653,14 @@ Variable 3
 <td>
 </td>
 <td>
-(0.037)
+(0.028)
 </td>
 <td>
 </td>
 <td>
 </td>
 <td>
-(0.027)
+(0.026)
 </td>
 </tr>
 <tr>
@@ -3684,44 +3684,44 @@ Variable 3
 Constant
 </td>
 <td>
--0.022
+-0.008
 </td>
 <td>
--0.024
+-0.006
 </td>
 <td>
--0.007
+-0.004
 </td>
 <td>
-0.149
+0.101
 </td>
 <td>
-0.148
+0.108
 </td>
 <td>
-0.152
+0.095
 </td>
 </tr>
 <tr>
 <td style="text-align:left">
 </td>
 <td>
-(0.072)
+(0.120)
 </td>
 <td>
-(0.077)
+(0.125)
 </td>
 <td>
-(0.072)
+(0.125)
 </td>
 <td>
-(0.158)
+(0.082)
 </td>
 <td>
-(0.155)
+(0.079)
 </td>
 <td>
-(0.161)
+(0.076)
 </td>
 </tr>
 <tr>
@@ -3822,22 +3822,22 @@ Observations
 R<sup>2</sup>
 </td>
 <td>
-0.013
+0.025
 </td>
 <td>
-0.013
+0.026
 </td>
 <td>
-0.013
+0.025
 </td>
 <td>
-0.015
+0.025
 </td>
 <td>
-0.015
+0.025
 </td>
 <td>
-0.015
+0.032
 </td>
 </tr>
 <tr>
@@ -3845,22 +3845,22 @@ R<sup>2</sup>
 Adjusted R<sup>2</sup>
 </td>
 <td>
--0.006
+0.007
 </td>
 <td>
--0.006
+0.007
 </td>
 <td>
--0.006
+0.006
 </td>
 <td>
--0.004
+0.006
 </td>
 <td>
--0.004
+0.006
 </td>
 <td>
--0.004
+0.013
 </td>
 </tr>
 <tr>
@@ -3868,22 +3868,22 @@ Adjusted R<sup>2</sup>
 Residual Std. Error (df = 980)
 </td>
 <td>
-0.984
+0.994
 </td>
 <td>
-0.984
+0.994
 </td>
 <td>
-0.984
+0.995
 </td>
 <td>
-1.009
+0.967
 </td>
 <td>
-1.010
+0.967
 </td>
 <td>
-1.010
+0.964
 </td>
 </tr>
 <tr>
@@ -3891,22 +3891,22 @@ Residual Std. Error (df = 980)
 F Statistic (df = 19; 980)
 </td>
 <td>
-0.702
+1.345
 </td>
 <td>
-0.684
+1.366
 </td>
 <td>
-0.697
+1.332
 </td>
 <td>
-0.797
+1.329
 </td>
 <td>
-0.774
+1.340
 </td>
 <td>
-0.783
+1.701<sup>\*\*</sup>
 </td>
 </tr>
 <tr>
@@ -3934,7 +3934,7 @@ It is worth noting that despite QuickReg's number of options and different synta
 Demeaning Acceleration:
 -----------------------
 
-With a large number of fixed effects, regression analysis can take a very long time. QuickReg offers a solution to this problem. First, QuickReg implements the method of alternating projections, which takes advantage of the fact that fixed effects are equivalent to "demeaning" covariates by the levels of the fixed effects. If the number of fixed effects are large, it can be faster to demean than to invert matricies). This procedure is implemented through the demean.list function in the *lfe* package.
+With a large number of fixed effects, regression analysis can take a very long time. QuickReg offers a solution to this problem. First, QuickReg implements the method of alternating projections, which takes advantage of the fact that fixed effects are equivalent to "demeaning" covariates by the levels of the fixed effects. If the number of fixed effects are large, it can be faster to demean than to invert matricies. This procedure is implemented through the demean.list function in the *lfe* package.
 
 Secondly, and more importantly for speed purposes, one often wants to calculate results for a number of different specifications of IVs and DVs with the same fixed effects and sample of observations. QuickReg is suitable for such cases for several reasons, the first being that it provides a convenient interface for listing specifications, and second because it summarizes model results in the familiar and concise table format with columns corresponding to different models. QuickReg is also able to speed up the calculations of such tables *significantly* by applying the demeaning procedure to a single covariate matrix shared by all specifications. While standard implementations calculate fixed effects repeatedly for different specifications, it is here only done once, and then shared across all specifications. Two words of caution are in order: (1) this limits calculations to a common sample, and (2) it makes fitted objects' model statistics (e.g. R-squared) meaningless (these are removed from the resultant table automatically). Coefficient confidence intervals can and are however still calculated correctly, and all QuickReg options (including to calculate robust SEs) are available.
 
@@ -3979,13 +3979,13 @@ speed.test <- suppressWarnings(microbenchmark(QuickReg(data = mydata, iv.vars = 
 speed.test
 ```
 
-    ## Unit: seconds
+    ## Unit: milliseconds
     ##                                                                                                                                                                                                                                                                                              expr
     ##  QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"), dv.vars = c("y",      "alternative.y"), specifications = list(c(1), c(2, 3), c(1,      2, 3)), fixed.effects = c("group1", "group2"), html.only = TRUE,      silent = TRUE, out.name = "QuickReg.normal", demeaning.acceleration = FALSE)
     ##     QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"), dv.vars = c("y",      "alternative.y"), specifications = list(c(1), c(2, 3), c(1,      2, 3)), fixed.effects = c("group1", "group2"), html.only = TRUE,      silent = TRUE, out.name = "QuickReg.fast", demeaning.acceleration = TRUE)
-    ##       min       lq     mean   median       uq      max neval cld
-    ##  4.823974 5.078692 5.562987 5.730423 5.877364 6.207369    20   b
-    ##  2.056930 2.330866 2.505817 2.510799 2.708035 3.190829    20  a
+    ##        min       lq     mean   median       uq      max neval cld
+    ##  1640.0228 2074.391 2359.198 2286.073 2386.463 4618.851    20   b
+    ##   920.2494 1101.517 1250.377 1196.808 1377.422 1688.904    20  a
 
 ``` r
 print( paste("Total number of observations:", N))
@@ -4046,9 +4046,9 @@ speed.test
     ##                                                                                                                                                                                                                                                                                                   expr
     ##  QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"), dv.vars = c("y",      "alternative.y"), specifications = list(c(1), c(2, 3), c(1,      2, 3)), fixed.effects = c("group1", "group2"), html.only = TRUE,      silent = TRUE, out.name = "QuickReg.normal.html", demeaning.acceleration = FALSE)
     ##     QuickReg(data = mydata, iv.vars = c("x1", "x2", "x3"), dv.vars = c("y",      "alternative.y"), specifications = list(c(1), c(2, 3), c(1,      2, 3)), fixed.effects = c("group1", "group2"), html.only = TRUE,      silent = TRUE, out.name = "QuickReg.fast.html", demeaning.acceleration = TRUE)
-    ##        min        lq      mean    median        uq       max neval cld
-    ##  207.44335 208.75496 215.13072 211.17020 221.93954 229.72499    10   b
-    ##   75.15571  76.29382  82.12245  80.91357  87.47553  93.53871    10  a
+    ##       min       lq     mean   median       uq       max neval cld
+    ##  77.87794 84.15044 89.29405 87.46742 97.41462 100.89696    10   b
+    ##  26.64743 30.98438 31.80409 32.15318 32.95510  36.11876    10  a
 
 ``` r
 print( paste("Total number of observations:", N))

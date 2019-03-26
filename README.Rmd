@@ -147,14 +147,16 @@ We might also want robust standard errors or standard errors clustered at "group
 Base R: [See this guide by Drew Dimmery](http://www.drewdimmery.com/robust-ses-in-r/) (it involves specifying a custom function, and then passing fitted models throught the function one at a time).
 
 QuickReg: simply select "robust.se = TRUE" or "cluster ='clustering variable'":
+
 ```{r, message=FALSE, results ='asis', warning=FALSE}
 # QuickReg
 QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), specifications = list(1, 2, 3), 
          type = "html", robust.se = TRUE)
+```
 
+```{r, message=FALSE, results ='asis', warning=FALSE}
 QuickReg(data = mydata, dv.vars = "y", iv.vars = c("x1", "x2", "x3"), specifications = list(1, 2, 3), 
          type = "html", cluster = "group1")
-
 ```
 
 Let us also try a few more combinations using QuickReg:
@@ -200,7 +202,7 @@ It is worth noting that despite QuickReg's number of options and different synta
 
 ## Demeaning Acceleration:
 
-With a large number of fixed effects, regression analysis can take a very long time. QuickReg offers a solution to this problem. First, QuickReg implements the method of alternating projections, which takes advantage of the fact that fixed effects are equivalent to "demeaning" covariates by the levels of the fixed effects. If the number of fixed effects are large, it can be faster to demean than to invert matricies). This procedure is implemented through the demean.list function in the *lfe* package. 
+With a large number of fixed effects, regression analysis can take a very long time. QuickReg offers a solution to this problem. First, QuickReg implements the method of alternating projections, which takes advantage of the fact that fixed effects are equivalent to "demeaning" covariates by the levels of the fixed effects. If the number of fixed effects are large, it can be faster to demean than to invert matricies. This procedure is implemented through the demean.list function in the *lfe* package. 
 
 Secondly, and more importantly for speed purposes, one often wants to calculate results for a number of different specifications of IVs and DVs with the same fixed effects and sample of observations. QuickReg is suitable for such cases for several reasons, the first being that it provides a convenient interface for listing specifications, and second because it summarizes model results in the familiar and concise table format with columns corresponding to different models. QuickReg is also able to speed up the calculations of such tables *significantly* by applying the demeaning procedure to a single covariate matrix shared by all specifications. While standard implementations calculate fixed effects repeatedly for different specifications, it is here only done once, and then shared across all specifications. Two words of caution are in order: (1) this limits calculations to a common sample, and (2) it makes fitted objects' model statistics (e.g. R-squared) meaningless (these are removed from the resultant table automatically). Coefficient confidence intervals can and are however still calculated correctly, and all QuickReg options (including to calculate robust SEs) are available.    
 
@@ -311,7 +313,7 @@ library(QuickReg)
 # Loading data
 mydata <- readRDS("3d_example.RDS")
 
-# Use the QuickReg to produce a regression table     
+# Use QuickReg to produce a regression table     
 QuickReg(data = mydata, 
          iv.vars = c("upop", "log_gdppc_mad", "SDI", "SDT", "war", "polity2"), 
          iv.vars.names = c("Urban Population", "Log(GDPPC)", "Spatial distance to income", 

@@ -1,10 +1,9 @@
 
-% Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-% Date and time: Sun, Apr 23, 2017 - 1:22:10 PM
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Mon, Mar 25, 2019 - 8:33:22 PM
 \begin{table}[!htbp] \centering 
-  \caption{QuickReg Table (created: 2017-04-23 13:22:10)} 
+  \caption{QuickReg Table (created: 2019-03-25 20:33:22)} 
   \label{} 
-\tiny 
 \begin{tabular}{@{\extracolsep{5pt}}lcccccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
@@ -13,21 +12,24 @@
 \\[-1.8ex] & \multicolumn{3}{c}{y} & \multicolumn{3}{c}{alternative.y} \\ 
 \\[-1.8ex] & (1) & (2) & (3) & (4) & (5) & (6)\\ 
 \hline \\[-1.8ex] 
- x1 & $-$0.001 &  & $-$0.001 & 0.05 &  & 0.04 \\ 
-  & (0.03) &  & (0.03) & (0.03) &  & (0.03) \\ 
+ x1 & 0.076$^{**}$ &  & 0.077$^{**}$ & $-$0.052$^{*}$ &  & $-$0.052$^{*}$ \\ 
+  & (0.031) &  & (0.031) & (0.030) &  & (0.030) \\ 
   & & & & & & \\ 
- x2 &  & 0.01 & 0.01 &  & 0.07$^{**}$ & 0.07$^{**}$ \\ 
-  &  & (0.03) & (0.03) &  & (0.03) & (0.03) \\ 
+ x2 &  & 0.001 & $-$0.001 &  & $-$0.011 & $-$0.009 \\ 
+  &  & (0.032) & (0.032) &  & (0.032) & (0.032) \\ 
   & & & & & & \\ 
- x3 &  & $-$0.03 & $-$0.03 &  & $-$0.01 & $-$0.01 \\ 
-  &  & (0.03) & (0.03) &  & (0.03) & (0.03) \\ 
+ x3 &  & $-$0.017 & $-$0.019 &  & 0.027 & 0.028 \\ 
+  &  & (0.034) & (0.034) &  & (0.033) & (0.033) \\ 
   & & & & & & \\ 
 \hline \\[-1.8ex] 
 group1 & Yes & Yes & Yes & Yes & Yes & Yes \\ 
 group2 & Yes & Yes & Yes & Yes & Yes & Yes \\ 
 \hline &  &  &  &  &  &  \\ 
 Observations & 1,000 & 1,000 & 1,000 & 1,000 & 1,000 & 1,000 \\ 
-Residual Std. Error & 0.91 (df = 998) & 0.91 (df = 997) & 0.91 (df = 996) & 0.90 (df = 998) & 0.90 (df = 997) & 0.90 (df = 996) \\ 
+R$^{2}$ & 0.006 & 0.0003 & 0.006 & 0.003 & 0.001 & 0.004 \\ 
+Adjusted R$^{2}$ & 0.005 & $-$0.002 & 0.003 & 0.002 & $-$0.001 & 0.001 \\ 
+Residual Std. Error & 0.895 (df = 998) & 0.898 (df = 997) & 0.896 (df = 996) & 0.886 (df = 998) & 0.888 (df = 997) & 0.887 (df = 996) \\ 
+F Statistic & 6.188$^{**}$ (df = 1; 998) & 0.133 (df = 2; 997) & 2.161$^{*}$ (df = 3; 996) & 2.957$^{*}$ (df = 1; 998) & 0.384 (df = 2; 997) & 1.245 (df = 3; 996) \\ 
 \hline 
 \hline \\[-1.8ex] 
 \textit{Note:}  & \multicolumn{6}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
